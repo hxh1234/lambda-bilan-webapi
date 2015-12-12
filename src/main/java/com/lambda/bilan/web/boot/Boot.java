@@ -17,16 +17,6 @@ import org.springframework.context.annotation.Import;
 public class Boot {
 
     public static void main(String[] args) {
-        //SpringApplication.run(Boot.class, args);
-    	
-    	SpringApplication app = new SpringApplication(Boot.class);
-		app.setLogStartupInfo(false);
-		// on la lance
-		ConfigurableApplicationContext context = app.run(args);
-		// métier
-		//Metier metier = context.getBean(Metier.class);
-		
-		//metier.getuser();
-        
+        SpringApplication.run(Boot.class, args);
     }
 }
