@@ -53,7 +53,7 @@ public class GestionUtilisateur{
 			collaborateur.setPasswordUtilisateur(passwordUtilisateur);
 			utilisateurMetier.addUtilisateur(collaborateur);
 			//sendmailmail(utilisateur,PasswordUtilisateur);
-		} catch (Exception e) {
+		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
 		return new Reponse(0, PropretiesHelper.getText("utilisateur.add.success"));
@@ -69,7 +69,7 @@ public class GestionUtilisateur{
 			evaluateur.setPasswordUtilisateur(passwordUtilisateur);
 			utilisateurMetier.addUtilisateur(evaluateur);
 			//sendmailmail(utilisateur,PasswordUtilisateur);
-		} catch (Exception e) {
+		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
 		return new Reponse(0, PropretiesHelper.getText("utilisateur.add.success"));
@@ -85,7 +85,7 @@ public class GestionUtilisateur{
 			managerRH.setPasswordUtilisateur(passwordUtilisateur);
 			utilisateurMetier.addUtilisateur(managerRH);
 			//sendmailmail(utilisateur,PasswordUtilisateur);
-		} catch (Exception e) {
+		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
 		return new Reponse(0, PropretiesHelper.getText("utilisateur.add.success"));
@@ -101,7 +101,7 @@ public class GestionUtilisateur{
 			administrateur.setPasswordUtilisateur(passwordUtilisateur);
 			utilisateurMetier.addUtilisateur(administrateur);
 			//sendmailmail(utilisateur,PasswordUtilisateur);
-		} catch (Exception e) {
+		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
 		return new Reponse(0, PropretiesHelper.getText("utilisateur.add.success"));
