@@ -227,6 +227,15 @@ public class GestionUtilisateur{
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
 	}
+	
+	@RequestMapping(value = "/collaborateurs/{id}/bap" , method = RequestMethod.GET)
+	public Reponse getAllBAPOfCollaborateur(@PathVariable("id") Long id) {
+		try {
+			return new Reponse(0,bapMetier.getAllBAPOfCollaborateur(id));
+		} catch (LambdaException e) {
+			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
+		}
+	}
 
 	@RequestMapping(value = "/collaborateurs/{id}/feedBack" , method = RequestMethod.GET)
 	public Reponse getAllfeedBackOfCollaborateurByYear(@PathVariable("id") Long id,Date year) {
