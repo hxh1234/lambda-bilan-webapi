@@ -18,6 +18,7 @@ import com.lambda.bilan.helpers.LambdaException;
 import com.lambda.bilan.helpers.PropretiesHelper;
 import com.lambda.bilan.metier.IBAPMetier;
 import com.lambda.bilan.metier.IFeedBackMetier;
+import com.lambda.bilan.metier.IMailMetier;
 import com.lambda.bilan.metier.IObjectifMetier;
 import com.lambda.bilan.metier.IPlanAmeliorationMetier;
 import com.lambda.bilan.metier.IUtilisateurMetier;
@@ -39,7 +40,9 @@ public class GestionUtilisateur{
 	IObjectifMetier objectifMetier;
 	@Autowired
 	IPlanAmeliorationMetier planAmeliorationMetier;
-
+	/*@Autowired
+	IMailMetier mailMetier;
+*/
 
 	/*
 	 * Ajouter les utilisateurs 
@@ -54,7 +57,7 @@ public class GestionUtilisateur{
 			String passwordUtilisateur = RandomGenerator.randomString();
 			collaborateur.setPasswordUtilisateur(passwordUtilisateur);
 			utilisateurMetier.addUtilisateur(collaborateur);
-			//sendmailmail(utilisateur,PasswordUtilisateur);
+			//mailMetier.sendMailNewCollaborateur(collaborateur);
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
@@ -70,7 +73,7 @@ public class GestionUtilisateur{
 			String passwordUtilisateur = RandomGenerator.randomString();
 			evaluateur.setPasswordUtilisateur(passwordUtilisateur);
 			utilisateurMetier.addUtilisateur(evaluateur);
-			//sendmailmail(utilisateur,PasswordUtilisateur);
+			//sendmailmail(utilisateur);
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}

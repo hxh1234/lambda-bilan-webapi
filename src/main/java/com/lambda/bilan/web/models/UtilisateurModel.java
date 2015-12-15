@@ -32,10 +32,10 @@ public class UtilisateurModel {
 		if(utilisateur.getClass().getName()==COLLABORATEUR_CLASS){
 			Collaborateur collaborateur=(Collaborateur) utilisateur;
 			hash.put("idManagerRH",collaborateur.getIdManagerRH());
-			hash.put("idManagerRH",collaborateur.getDateDepartCollaborateur());
-			hash.put("idManagerRH",collaborateur.getDateEmbaucheCollaborateur());
-			hash.put("idManagerRH",collaborateur.getEtatCollaborateur());
-			hash.put("idManagerRH",collaborateur.getPosteActuelCollaborateur());
+			hash.put("dateDepartCollaborateur",collaborateur.getDateDepartCollaborateur());
+			hash.put("dateEmbaucheCollaborateur",collaborateur.getDateEmbaucheCollaborateur());
+			hash.put("etatCollaborateur",collaborateur.getEtatCollaborateur());
+			hash.put("posteActuelCollaborateur",collaborateur.getPosteActuelCollaborateur());
 			hash.put("role", "Collaborateur");
 		}
 		if(utilisateur.getClass().getName()==MANAGERRH_CLASS){

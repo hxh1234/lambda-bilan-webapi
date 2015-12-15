@@ -31,7 +31,7 @@ public class Profil {
 		}
 	}
 	
-	@RequestMapping(value = "/profils" , method = RequestMethod.GET , consumes = "application/json; charset=UTF-8")
+	@RequestMapping(value = "/profils" , method = RequestMethod.PUT , consumes = "application/json; charset=UTF-8")
 	public Reponse updatepassword(@RequestBody UpdatePasswordModel getUpdatePassword){
 		try {
 			Utilisateur utilisateur = utilisateurMetier.getUtilisateur(getUpdatePassword.getIdUtilisateur());
