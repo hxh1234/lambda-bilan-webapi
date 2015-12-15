@@ -13,6 +13,7 @@ import com.lambda.bilan.entities.Administrateur;
 import com.lambda.bilan.entities.Collaborateur;
 import com.lambda.bilan.entities.Evaluateur;
 import com.lambda.bilan.entities.ManagerRH;
+import com.lambda.bilan.entities.Utilisateur;
 import com.lambda.bilan.helpers.LambdaException;
 import com.lambda.bilan.helpers.PropretiesHelper;
 import com.lambda.bilan.metier.IBAPMetier;
@@ -22,6 +23,7 @@ import com.lambda.bilan.metier.IPlanAmeliorationMetier;
 import com.lambda.bilan.metier.IUtilisateurMetier;
 import com.lambda.bilan.web.helpers.ExceptionHelpers;
 import com.lambda.bilan.web.helpers.RandomGenerator;
+import com.lambda.bilan.web.models.UtilisateurModel;
 import com.lambda.bilan.web.models.Reponse;
 
 @RestController
@@ -153,6 +155,17 @@ public class GestionUtilisateur{
 		return new Reponse(0, PropretiesHelper.getText("utilisateur.update.success"));
 	}
 
+	/*
+	 * obtenir un utilisateur
+	 */
+	@RequestMapping(value="/utilisateurs/{id}",method=RequestMethod.GET)
+	public Reponse getUtilisateur(@PathVariable("id") Long id){
+		try {
+			return new Reponse(0,utilisateurMetier.getUtilisateur(id));
+		} catch (Exception e) {
+			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
+		}
+	}
 
 	/*
 	 * Suppression d'un utilisateur
@@ -202,8 +215,7 @@ public class GestionUtilisateur{
 	@RequestMapping(value = "/utilisateurs" , method = RequestMethod.GET)
 	public Reponse getAllUtilisateur()  {
 		try {
-			//na9ih Manager rh id et nom selement 
-			return new Reponse(0,utilisateurMetier.getAllUtilisateur());
+			return new Reponse(0,UtilisateurModel.listeUtilisateurRvised(utilisateurMetier.getAllUtilisateur()));
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
@@ -212,7 +224,6 @@ public class GestionUtilisateur{
 	@RequestMapping(value = "/oldcollaborateurs" , method = RequestMethod.GET)
 	public Reponse getAllOldCollaborateur()  {
 		try {
-			//na9ih Manager rh id et nom selement 
 			return new Reponse(0,utilisateurMetier.getAllOldCollaborateur());
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
@@ -227,7 +238,7 @@ public class GestionUtilisateur{
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
 	}
-	
+
 	@RequestMapping(value = "/collaborateurs/{id}/bap" , method = RequestMethod.GET)
 	public Reponse getAllBAPOfCollaborateur(@PathVariable("id") Long id) {
 		try {
@@ -256,7 +267,7 @@ public class GestionUtilisateur{
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
 	}
-	
+
 	@RequestMapping(value = "/collaborateurs/{id}/planAmelioration" , method = RequestMethod.GET)
 	public Reponse getPlanAmeliorationOfCollaborateurByYear(@PathVariable("id") Long id ,Date year) {
 		try {	
