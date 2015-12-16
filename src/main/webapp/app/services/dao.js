@@ -50,9 +50,7 @@ angular.module("lambda.bilan")
 
         // success
         function success(response) {
-          // response.data={status:0, data:[med1, med2, ...]} ou {status:x, data=[msg1, msg2, ...]
-         // utils.debug("[dao] getData[" + urlAction + "] success réponse", response);
-            console.log("init response "+angular.toJson(response));
+          // response.data={status:0, data:[med1, med2, ...]} ou {status:x, data=[msg1, msg2, ...];
           // réponse
           var payLoad = response.data;
           réponse = payLoad.status == 0 ? {err: 0, data: payLoad.data} : {err: 1, messages: payLoad.data};

@@ -1,10 +1,10 @@
-var app = angular.module("lambda.bilan", ["ngCookies","ngTable","isteven-multi-select"]);
+var app = angular.module("lambda.bilan", ["ngCookies","isteven-multi-select"]);
 
 
 
 app.controller("managerRhAccueilController",
-    ['$scope','ngTableParams', '$filter','security', 'HTTP_METHOD','properties', 'utils','dao',
-        function ($scope,NgTableParams, $filter ,security, HTTP_METHOD, properties , utils,dao ) {
+    ['$scope', '$filter','security', 'HTTP_METHOD','properties', 'utils','dao',
+        function ($scope, $filter ,security, HTTP_METHOD, properties , utils,dao ) {
 
             var idManagerRH=11;
 
@@ -81,6 +81,26 @@ app.controller("managerRhAccueilController",
             listerObjectifsRef();
 
 
+            $scope.categories=[];
+            var task = dao.getData(properties.urlCategorie, null, HTTP_METHOD.get);
+            //on attent la reponse...
+            task.promise.then(function (result) {
+                // fin d'attente
+                // erreur ?
+                if (result.err == 0) {
+                    //Pas d'erreurs
+                    $scope.categories=result.data;
+                } else {
+                    // il y a eu des erreurs
+                    $scope.errors = {
+                        title: properties.recuperationsCategoriesErrors,
+                        messages: utils.getErrors(result),
+                        show: true
+                    };
+                }
+            });
+
+
             $scope.supprimerObjectif=function(id){
                 var task = dao.getData(properties.urlObjectif+"/"+id, null, HTTP_METHOD.delete);
                 //on attent la reponse...
@@ -103,7 +123,7 @@ app.controller("managerRhAccueilController",
             };
 
             $scope.validerObjectif=function(id){
-                var task = dao.getData(properties.urlValiderObjectif+"/"+id, null, HTTP_METHOD.put);
+                var task = dao.getData(properties.urlValiderObjectif+"/"+id, null, HTTP_METHOD.put,{});
                 //on attent la reponse...
                 task.promise.then(function (result) {
                     // fin d'attente
@@ -124,52 +144,14 @@ app.controller("managerRhAccueilController",
 
             };
 
-
-
-            $scope.projetsInput=[];
-            var task = dao.getData(properties.urlObjectif, null, HTTP_METHOD.get);
-            //on attent la reponse...
-            task.promise.then(function (result) {
-                // fin d'attente
-                // erreur ?
-                if (result.err == 0) {
-                    //Pas d'erreurs
-                    $scope.projetsInput=result.data;
-                } else {
-                    // il y a eu des erreurs
-                    $scope.errors = {
-                        title: properties.validerObjectifError,
-                        messages: utils.getErrors(result),
-                        show: true
-                    };
-                }
-            });
-
-
-            $scope.affecterProjet=function(){
-                var projets = $scope.projetsOutput;
-                var task = dao.getData(properties.urlAffecterProjet, null, HTTP_METHOD.post);
-                //on attent la reponse...
-                task.promise.then(function (result) {
-                    // fin d'attente
-                    // erreur ?
-                    if (result.err == 0) {
-                        //Pas d'erreurs
-                        listerCollabsSansProjet();
-                    } else {
-                        // il y a eu des erreurs
-                        $scope.errors = {
-                            title: properties.affecterProjetError,
-                            messages: utils.getErrors(result),
-                            show: true
-                        };
-                    }
-                });
-
-
+            $scope.action={
+                affecterProjet:undefined,
+                ajouterObjectif:undefined,
+                modifierObjectif:undefined,
+                listerCollabsSansObj:listerCollabsSansObj,
+                listerCollabsSansProjet:listerCollabsSansProjet,
+                listerObjectifsRef:listerObjectifsRef
             };
-
-            $scope.action={ajouterObjectif:undefined};
 
 
 

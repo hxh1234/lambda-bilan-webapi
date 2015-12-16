@@ -18,9 +18,12 @@ angular.module("lambda.bilan")
       listerObjRefusError:"Les erreurs suivantes se sont produites lors du chargement de la liste " +
       "des collaborateurs sans objectif ",
       supprimerObjectifError:"Les erreurs suivantes se sont produites lors de la suppression de l'objectif",
+      modifierObjectifErrors:"Les erreurs suivantes se sont produites lors de la modification de l'objectif",
       validerObjectifError:"Les erreurs suivantes se sont produites lors de la validation de l'objectif",
       affecterProjetError:"Les erreurs suivantes se sont produites lors de l'affectation des projets",
-      ajouterObjectifsErrors:"Les erreurs suivantes se sont produites lors de l'affectation des projets",
+      ajouterObjectifsErrors:"Les erreurs suivantes se sont produites lors de l'ajout des objectifs",
+      recuperationsProjetsErrors:"Les erreurs suivantes se sont produites lors de la recuperation des projet au serveurs",
+      recuperationsCategoriesErrors:"Les erreurs suivantes se sont produites lors de la recuperation des categories au serveurs",
 
       //Erreurs http
       error_unknown: "Erreur non identifiée",
@@ -39,6 +42,7 @@ angular.module("lambda.bilan")
       urlEvaluateur:"/evaluateurs",
       urlAdministrateur:"/administrateurs",
       urlProjet:"/projets",
+      urlCategorie:"/categories",
       urlManagerRH:"/managerRHs",
       urlLogin:"/login",
       urlCollabsSansProjet:"/collaborateurs_without_projet",
@@ -46,6 +50,7 @@ angular.module("lambda.bilan")
       urlObjRefus:"/objectifs_refus",
       urlObjectif:"/objectifs",
       urlValiderObjectif:"/objectifs_valider",
+      urlRefuserObjectif:"/objectifs_refuser",
       urlAffecterProjet:"/interventions",
 
 
@@ -53,7 +58,7 @@ angular.module("lambda.bilan")
 
 
       // délai d'attente maximal pour les appels http en millisecondes
-      timeout: 1000
+      timeout: 2000
     };
   })
 ;
