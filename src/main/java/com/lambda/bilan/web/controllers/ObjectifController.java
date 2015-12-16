@@ -30,9 +30,9 @@ public class ObjectifController {
 	 * Ajouter des objectifs
 	 */
 	@RequestMapping(value = "/objectifs", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
-	public Reponse addObjectif(@RequestBody List<Objectif> objectifs) {
+	public Reponse addObjectif(@RequestBody Objectif objectif) {
 		try {
-			objectifMetier.addObjectif(objectifs);
+			objectifMetier.addObjectif(objectif);
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}

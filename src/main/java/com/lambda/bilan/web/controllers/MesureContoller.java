@@ -1,5 +1,7 @@
 package com.lambda.bilan.web.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,9 +26,14 @@ public class MesureContoller {
 	 * Ajouter Mesure
 	 */
 	@RequestMapping(value = "/mesures", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
-	public Reponse addMesure(@RequestBody Mesure mesure) {
+	public Reponse addMesure(@RequestBody List<Mesure> mesures) {
 		try {
-			mesureMetier.addMesure(mesure);
+			if(mesures.size()>1)
+				mesureMetier.addMesure(mesures);
+			else{
+				Mesure mesure =mesures.get(0);
+				mesureMetier.addMesure(mesure);
+			}
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
