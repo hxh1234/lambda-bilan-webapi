@@ -30,9 +30,9 @@ public class ObjectifController {
 	 * Ajouter des objectifs
 	 */
 	@RequestMapping(value = "/objectifs", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
-	public Reponse addObjectif(@RequestBody Objectif objectif) {
+	public Reponse addObjectif(@RequestBody List<Objectif> objectifs) {
 		try {
-			objectifMetier.addObjectif(objectif);
+			objectifMetier.addObjectif(objectifs);
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
@@ -40,7 +40,7 @@ public class ObjectifController {
 	}
 	
 	/*
-	 * Mise à jour Objectif 
+	 * Mise à jour Objectif
 	 */
 	@RequestMapping(value = "/objectifs/{id}", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
 	public Reponse updateObjectif(@PathVariable("id") Long id, @RequestBody Objectif objectif)  {
