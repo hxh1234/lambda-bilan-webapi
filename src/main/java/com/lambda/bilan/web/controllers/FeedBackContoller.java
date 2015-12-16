@@ -12,6 +12,7 @@ import com.lambda.bilan.entities.Collaborateur;
 import com.lambda.bilan.helpers.LambdaException;
 import com.lambda.bilan.metier.IFeedBackMetier;
 import com.lambda.bilan.web.helpers.ExceptionHelpers;
+import com.lambda.bilan.web.models.FeedBackModel;
 import com.lambda.bilan.web.models.Reponse;
 
 @RestController
@@ -27,7 +28,7 @@ public class FeedBackContoller {
 	public Reponse getAllfeedBackOfCollaborateurByYear(@PathVariable("id") Long id,Date year) {
 		try {
 			Collaborateur collaborateur = new Collaborateur(id);
-			return new Reponse(0,feedBackMetier.getAllfeedBackOfCollaborateurByYear(collaborateur, year));
+			return new Reponse(0,FeedBackModel.listeFeedBackRvised(feedBackMetier.getAllfeedBackOfCollaborateurByYear(collaborateur, year)));
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}

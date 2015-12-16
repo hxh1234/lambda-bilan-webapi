@@ -191,6 +191,8 @@ public class UtilisateurController {
 			Utilisateur utilisateur = utilisateurMetier.getUtilisateur(getUpdatePassword.getIdUtilisateur());
 			if(utilisateur.getPasswordUtilisateur().equals(getUpdatePassword.getCurrentPassword()))
 				utilisateurMetier.updatePassword(getUpdatePassword.getNewPassword(),getUpdatePassword.getIdUtilisateur());
+			else
+				return new Reponse(0, PropretiesHelper.getText("utilisateur.update.password.fail"));
 		} catch (Exception e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}

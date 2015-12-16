@@ -16,6 +16,7 @@ import com.lambda.bilan.helpers.LambdaException;
 import com.lambda.bilan.metier.IObjectifMetier;
 import com.lambda.bilan.web.helpers.ExceptionHelpers;
 import com.lambda.bilan.web.helpers.PropretiesHelper;
+import com.lambda.bilan.web.models.FicheObjectifsModel;
 import com.lambda.bilan.web.models.Reponse;
 
 @RestController
@@ -41,7 +42,6 @@ public class ObjectifController {
 	/*
 	 * Mise à jour Objectif
 	 */
-	//Mise à jour les mesures aussi
 	@RequestMapping(value = "/objectifs/{id}", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
 	public Reponse updateObjectif(@PathVariable("id") Long id, @RequestBody Objectif objectif)  {
 		try {
@@ -83,7 +83,7 @@ public class ObjectifController {
 	/*
 	 * Valider l'objectif
 	 */
-	@RequestMapping(value = "/objectifs_valider/{id}", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
+	@RequestMapping(value = "/objectifs_valider/{id}", method = RequestMethod.PUT)
 	public Reponse validerObjectif(@PathVariable("id") Long id)  {
 		try {
 				objectifMetier.validerObjectif(id);	
@@ -96,7 +96,7 @@ public class ObjectifController {
 	/*
 	 * Refuser l'objectif
 	 */
-	@RequestMapping(value = "/objectifs_refuser/{id}", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
+	@RequestMapping(value = "/objectifs_refuser/{id}", method = RequestMethod.PUT)
 	public Reponse refuserObjectif(@PathVariable("id") Long id)  {
 		try {
 				objectifMetier.refuserObjectif(id);	
@@ -113,7 +113,7 @@ public class ObjectifController {
 	public Reponse getFicheObjectifsOfCollaborateurByYear(@PathVariable("id") Long id ,Date year) {
 		try {
 			Collaborateur collaborateur = new Collaborateur(id);
-			return new Reponse(0,objectifMetier.getFicheObjectifsOfCollaborateurByYear(collaborateur, year));
+			return new Reponse(0,FicheObjectifsModel.getMapForFicheObjectifs(objectifMetier.getFicheObjectifsOfCollaborateurByYear(collaborateur, year)));
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}

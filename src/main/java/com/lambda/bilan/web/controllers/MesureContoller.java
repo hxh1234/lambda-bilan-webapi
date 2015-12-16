@@ -24,7 +24,7 @@ public class MesureContoller {
 	 * Ajouter Mesure
 	 */
 	@RequestMapping(value = "/mesures", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
-	public Reponse addColaborateur(@RequestBody Mesure mesure) {
+	public Reponse addMesure(@RequestBody Mesure mesure) {
 		try {
 			mesureMetier.addMesure(mesure);
 		} catch (LambdaException e) {
@@ -37,7 +37,7 @@ public class MesureContoller {
 	 * mise a jour Mesure
 	 */
 	@RequestMapping(value = "/mesures/{id}", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
-	public Reponse updateCollaborateur(@PathVariable("id") Long id, @RequestBody Mesure mesure)  {
+	public Reponse updateMesure(@PathVariable("id") Long id, @RequestBody Mesure mesure)  {
 		try {
 			if (mesure.getIdMesure().equals(id))
 				mesureMetier.updateMesure(mesure);
@@ -54,7 +54,7 @@ public class MesureContoller {
 	 */
 
 	@RequestMapping(value = "/mesures/{id}", method = RequestMethod.DELETE)
-	public Reponse deleteUtilisateur(@PathVariable("id") Long id) {
+	public Reponse deleteMesure(@PathVariable("id") Long id) {
 		try {
 			mesureMetier.deleteMesure(id);
 		} catch (LambdaException e) {
@@ -63,4 +63,16 @@ public class MesureContoller {
 		return new Reponse(0, PropretiesHelper.getText("mesure.delete.success"));
 	}
 
+	/*
+	 * Liste Responsable Mesure
+	 */
+	@RequestMapping(value = "/responsables_mesures", method = RequestMethod.GET)
+	public Reponse getAllResponsableMesure() {
+		try {
+			return new Reponse(0, mesureMetier.getAllResponsableMesure());
+		} catch (LambdaException e) {
+			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
+		}
+	}
+	
 }
