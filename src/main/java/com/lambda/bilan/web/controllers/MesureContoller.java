@@ -7,13 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lambda.bilan.entities.Collaborateur;
 import com.lambda.bilan.entities.Mesure;
 import com.lambda.bilan.helpers.LambdaException;
 import com.lambda.bilan.metier.IMesureMetier;
 import com.lambda.bilan.web.helpers.ExceptionHelpers;
 import com.lambda.bilan.web.helpers.PropretiesHelper;
-import com.lambda.bilan.web.helpers.RandomGenerator;
 import com.lambda.bilan.web.models.Reponse;
 
 @RestController

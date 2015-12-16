@@ -12,6 +12,7 @@ import com.lambda.bilan.helpers.LambdaException;
 import com.lambda.bilan.metier.IProjetMetier;
 import com.lambda.bilan.web.helpers.PropretiesHelper;
 import com.lambda.bilan.web.helpers.ExceptionHelpers;
+import com.lambda.bilan.web.models.ProjetModel;
 import com.lambda.bilan.web.models.Reponse;
 
 @RestController
@@ -39,7 +40,7 @@ public class ProjetController {
 	@RequestMapping(value = "/projets" , method = RequestMethod.GET)
 	public Reponse getAllProjet(){
 		try {
-			return new Reponse(0,projetMetier.getAllProjet());
+			return new Reponse(0,ProjetModel.listeProjetRvised(projetMetier.getAllProjet()));
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
