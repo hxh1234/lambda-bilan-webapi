@@ -40,7 +40,7 @@ public class ObjectifController {
 	}
 	
 	/*
-	 * Mise à jour Objectif
+	 * Mise à jour Objectif 
 	 */
 	@RequestMapping(value = "/objectifs/{id}", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
 	public Reponse updateObjectif(@PathVariable("id") Long id, @RequestBody Objectif objectif)  {
