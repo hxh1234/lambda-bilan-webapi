@@ -1,0 +1,511 @@
+    <!DOCTYPE html>
+    <html lang="en" ng-app="lambda.bilan">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+      <meta name="description" content="">
+      <meta name="author" content="ThemeBucket">
+      <link rel="shortcut icon" href="#" type="image/png">
+
+      <title>ManagerRH</title>
+        
+      <!--dynamic table-->
+      <link href="js/advanced-datatable/css/demo_page.css" rel="stylesheet" />
+      <link href="js/advanced-datatable/css/demo_table.css" rel="stylesheet" />
+      <link rel="stylesheet" href="js/data-tables/DT_bootstrap.css" />
+        
+       <!--pickers css-->
+      <link rel="stylesheet" type="text/css" href="js/bootstrap-datepicker/css/datepicker-custom.css" />
+      <link rel="stylesheet" type="text/css" href="js/bootstrap-timepicker/css/timepicker.css" />
+      <link rel="stylesheet" type="text/css" href="js/bootstrap-colorpicker/css/colorpicker.css" />
+      <link rel="stylesheet" type="text/css" href="js/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+      <link rel="stylesheet" type="text/css" href="js/bootstrap-datetimepicker/css/datetimepicker-custom.css" />
+        
+      <!--ios7-->
+        <link rel="stylesheet" type="text/css" href="js/ios-switch/switchery.css" />
+      
+    <!--wysihtml5 css -->
+      <link rel="stylesheet" type="text/css" href="js/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
+
+        <!--icheck-->
+        <link href="js/iCheck/skins/minimal/minimal.css" rel="stylesheet">
+        <link href="js/iCheck/skins/minimal/red.css" rel="stylesheet">
+        <link href="js/iCheck/skins/minimal/blue.css" rel="stylesheet">
+
+       <link href="js/iCheck/skins/square/square.css" rel="stylesheet">
+       <link href="js/iCheck/skins/square/red.css" rel="stylesheet">
+       <link href="js/iCheck/skins/square/blue.css" rel="stylesheet">
+
+    <!--multi-select **********-->
+    <link rel="stylesheet" type="text/css" href="js/jquery-multi-select/css/multi-select.css" />
+      <!--file upload-->
+      <link rel="stylesheet" type="text/css" href="css/bootstrap-fileupload.min.css" />
+        
+     
+      <link href="css/style.css" rel="stylesheet">
+      <link href="css/style-responsive.css" rel="stylesheet">
+        
+        <link href="css/jquery.stepy.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="isteven-multi-select.css">
+      <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+      <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <![endif]-->
+    </head>
+
+    <body class="sticky-header  left-side-collapsed" ng-controller="managerRhAccueilController">
+
+    <section>
+        <!-- left side start-->
+        <div class="left-side sticky-left-side">
+
+            <!--logo and iconic logo start-->
+            <div class="logo">
+                <a href="index.html"><img src="images/logo.png" alt=""></a>
+            </div>
+
+            <div class="logo-icon text-center">
+                <a href="index.html"><img src="images/logo_icon.png" alt=""></a>
+            </div>
+            <!--logo and iconic logo end-->
+
+            <div class="left-side-inner">
+
+                <!-- visible to small devices only -->
+                <div class="visible-xs hidden-sm hidden-md hidden-lg">
+                    <div class="media logged-user">
+                        <img alt="" src="images/photos/user-avatar.png" class="media-object">
+                        <div class="media-body">
+                            <h4><a href="#">Anas masaaf</a></h4>
+                        </div>
+                    </div>
+
+                    <h5 class="left-nav-title">Mon Compte</h5>
+                    <ul class="nav nav-pills nav-stacked custom-nav">
+                      <li><a href="#"><i class="fa fa-user"></i> <span>Profile</span></a></li>
+                    </ul>
+                </div>
+
+                <!--sidebar nav start-->
+                <ul class="nav nav-pills nav-stacked custom-nav">
+                    <li class="active"><a href="accueil.html"><i class="fa fa-home"></i> <span>Accueil</span></a></li>
+                    <li ><a href="liste_collaborateur.html"><i class="fa fa-users"></i> <span>Gestion Collaborateur</span></a></li>
+                    <li><a href="profil.html"><i class="fa fa-user"></i> <span>Mon profil</span></a></li>
+                    <li><a href="login.html"><i class="fa fa-sign-in"></i> <span>Se deconnecter</span></a></li>
+                </ul>
+                <!--sidebar nav end-->
+
+            </div>
+        </div>
+        <!-- left side end-->
+
+        <!-- main content start-->
+        <div class="main-content" >
+
+            <!-- header section start-->
+            <div class="header-section">
+
+                <!--toggle button start-->
+                <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+                <!--toggle button end-->
+
+                <!--notification menu start -->
+                <div class="menu-right">
+                    <ul class="notification-menu">
+                        <li>
+                            <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <img src="images/photos/user-avatar.png" alt="" />
+                                John Doe
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                                <li><a href="#"><i class="fa fa-user"></i>  Profile</a></li>
+                                <li><a href="#"><i class="fa fa-sign-out"></i> Se deconnecter</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+                <!--notification menu end -->
+
+            </div>
+            <!-- header section end-->
+            <!-- page heading start-->
+            <div class="page-heading">
+                <h3>
+                    Manager RH <small>Accueil</small>
+                </h3>
+            </div>
+            <!-- page heading end-->
+
+            <!--body wrapper start-->
+            <div class="wrapper">
+                <!-- present working link Start-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--breadcrumbs start -->
+                        <ul class="breadcrumb panel">
+                            <li><a href='accueil.html'><i class="fa fa-home"></i> Accueil</a></li>
+                        </ul>
+                        <!--breadcrumbs end -->
+                    </div>
+                </div>
+
+
+                <!-- Message Section start-->
+                <div ng-show="errors.show" class="alert alert-block alert-danger fade in">
+                    <button type="button" class="close close-sm" data-dismiss="alert">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <strong>{{errors.title}}</strong>
+                    <ul>
+                        <li ng-repeat="message in errors.messages">{{message}}</li>
+                    </ul>
+                </div>
+                <!-- Message Section end-->
+
+                <!-- present working link End-->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-md-4">
+                            <div class="panel">
+                                <header class="panel-heading">
+                                    Collaborateurs sans projet
+                                </header>
+                                <div class="panel-body">
+                                    <ul class="goal-progress">
+                                        <li ng-repeat="c in collabsSansProjet">
+                                            <div class="prog-avatar">
+                                                <img src="images/photos/user1.png" alt=""/>
+                                            </div>
+                                            <div class="details">
+                                                <div class="title">
+                                                    <a href="#affecterProjectModal" ng-click="action.affecterProjet(c.idUtilisateur)" data-toggle="modal">{{c.nomUtilisateur}}</a> - {{c.posteActuelCollaborateur}}
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="panel">
+                                <header class="panel-heading">
+                                        Collaborateurs sans Objectif
+                                </header>
+                                <div class="panel-body">
+                                    <ul class="goal-progress">
+                                        <li ng-repeat="c in collabsSansObj">
+                                            <div class="prog-avatar">
+                                                <img src="images/photos/user1.png" alt=""/>
+                                            </div>
+                                            <div class="details">
+                                                <div class="title">
+                                                    <a href="#addObjectifModal" ng-click="action.ajouterObjectif(c.idUtilisateur)" data-toggle="modal">{{c.nomUtilisateur}}</a> - {{c.posteActuelCollaborateur}}
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                             <div class="panel">
+                                <header class="panel-heading">
+                                        Objectifs refusés
+                                </header>
+                                <div class="panel-body">
+                                    <div class="dir-info">
+                                        <div class="row" ng-repeat="obj in objectifsRef">
+                                            <div class="col-xs-3">
+                                                <div class="avatar">
+                                                    <img src="images/photos/user2.png" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <h5>{{obj.collaborateur.nomUtilisateur}}</h5>
+                                                <span>
+                                                    <a href="#updateObjectifModal" ng-click="action.modifierObjectif(obj)" data-toggle="modal" class="small">{{obj.nomObjectif}}</a>
+                                                </span>
+                                            </div>
+                                            <div class="col-xs-1">
+                                                <a class="dir-like" href="#" title="valider" ng-click="validerObjectif(obj.idObjectif)">
+                                                    <i class="fa fa-check"></i>
+                                                </a>
+                                            </div>
+                                            <div class="col-xs-1">
+                                                <a class="dir-like" href="#" title="supprimer" ng-click="supprimerObjectif(obj.idObjectif)">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal affecter project -->
+                <div ng-controller="affecterProjetsController" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
+                     id="affecterProjectModal" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Affecter les Projets</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <section class="panel">
+                                        <header class="panel-heading">
+                                            Projet
+                                        </header>
+                                        <div class="panel-body">
+                                            <form class="form-horizontal" role="form">
+                                                <div class="form-group last">
+                                                    <label  class="col-lg-3 col-sm-3 control-label">Nom de projet
+                                                     <span class="text-danger"> *</span></label>
+                                                    <div class="col-md-9">
+                                                        <div
+                                                                isteven-multi-select
+                                                                input-model="projetsInput"
+                                                                output-model="projetsOutput"
+                                                                button-label="icon name"
+                                                                item-label="icon name maker"
+                                                                tick-property="ticked"
+                                                        >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input ng-model="idCollab" ng-hide="true">
+                                                <button ng-click="affecterProjet()" type="submit" class="finish btn btn-info btn-sm">
+                                                   Affecter les projets</button>
+                                            </form>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- modal affecter project end -->
+                <!-- Modal Add Objectif -->
+                <div ng-controller="ajouterObjectifsController" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="addObjectifModal" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Ajouter Nouvel objectif</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box-widget">
+                                            <div class="widget-head clearfix">
+                                                <div id="top_tabby" class="block-tabby pull-left">
+                                                </div>
+                                            </div>
+                                            <div class="widget-container">
+                                                <div class="widget-block">
+                                                    <div class="widget-content box-padding">
+                                                        <form id="add_collaborateur" class=" form-horizontal left-align form-well">
+                                                                <div class="form-group">
+                                                                    <label for="nomObjectif" class="col-sm-3 control-label">Nom Objectif<span
+                                                                       class="text-danger"> *</span></label>
+                                                                    <div class="col-sm-9">
+                                                                   <input ng-model="nomObjectif" name="nomObjectif" class="form-control" placeholder="nom" type="text"
+                                                                          required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="inputLastName_2" class="col-sm-3 control-label">Description</label>
+                                                                    <div class="col-sm-9">
+                                                                   <input ng-model="descriptifObjectif" name="description" class="form-control" type="text">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-3 control-label">Categorie
+                                                                        <span class="text-danger"> *</span></label>
+                                                                    <div class="col-sm-9">
+                                                                        <select class="form-control input-sm m-bot15" ng-model="categorie"
+                                                                                ng-options="c as c.nomCategorie
+                                                                                     for c in categories">
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <button class="finish btn btn-success btn-sm" ng-click="ajouterObjectif()" type="button"><i class="fa fa-plus"></i>ajouter</button>
+                                                            
+                                                                <div class="row">
+                                                                <table class="table  table-hover general-table">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Nom objectif</th>
+                                                                            <th>Desciption</th>
+                                                                            <th>Categorie</th>
+                                                                            <th>Option</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr ng-repeat="obj in objectifs">
+                                                                            <td>{{obj.nomObjectif}}</td>
+                                                                            <td>{{obj.descriptifObjectif}}</td>
+                                                                            <td>{{obj.categorie.nomCategorie}}</td>
+                                                                            <td class="text-center">
+                                                                                <a href="#"  data-placement="top" class="tooltips" data-original-title="Supprimer" >
+                                                                                    <button ng-click="supprimerObjectif(obj)" class="btn btn-danger btn-xs" type="button">
+                                                                                        <i class="fa fa-trash-o"></i>
+                                                                                    </button> 
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <button ng-click="valider()" type="submit" class="finish btn btn-info ">
+                                                                valider</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- modal add Objectif end -->
+                <!-- Modal update Objectif -->
+                <div ng-controller="modifierObjectifController" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="updateObjectifModal" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Mise à jour d'objectif</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box-widget">
+                                            <div class="widget-head clearfix">
+                                                <div id="top_tabby" class="block-tabby pull-left">
+                                                </div>
+                                            </div>
+                                            <div class="widget-container">
+                                                <div class="widget-block">
+                                                    <div class="widget-content box-padding">
+                                                        <form id="add_collaborateur" class=" form-horizontal left-align form-well">
+                                                                <div class="form-group">
+                                                                    <label for="nomObjectif" class="col-sm-3 control-label">Nom Objectif<span
+                                                                       class="text-danger"> *</span></label>
+                                                                    <div class="col-sm-9">
+                                                                   <input ng-model="nomObjectif" name="nomObjectif" class="form-control" placeholder="nom" type="text"
+                                                                          required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="inputLastName_2" class="col-sm-3 control-label">Description</label>
+                                                                    <div class="col-sm-9">
+                                                                   <input ng-model="descriptifObjectif" name="description" class="form-control" type="text">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-3 control-label">Categorie
+                                                                        <span class="text-danger"> *</span></label>
+                                                                    <div class="col-sm-9">
+                                                                        <select class="form-control input-sm m-bot15" ng-model="idCategorie"
+                                                                                ng-options="c.idCategorie as c.nomCategorie
+                                                                                     for c in categories">
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            <button ng-click="modifier()" type="submit" class="finish btn btn-info btn-sm">
+                                                                Mise à jour</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- modal update Objectif end -->
+            </div>
+            <!--body wrapper end-->
+
+            <!--footer section start-->
+            <footer id="footer">
+                2015 &copy; Anas & Jaouad
+            </footer>
+            <!--footer section end-->
+
+        </div>
+        <!-- main content end-->
+    </section>
+
+
+    <script type="text/javascript"  src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="isteven-multi-select.js"></script>
+    <script type="text/javascript" src="controllers/managerRH/managerRhAccueilController.js"></script>
+    <script type="text/javascript" src="controllers/managerRH/ajouterObjectifsController.js"></script>
+    <script type="text/javascript" src="controllers/managerRH/affecterProjetsController.js"></script>
+    <script type="text/javascript" src="controllers/managerRH/modifierObjectifController.js"></script>
+    <script type="text/javascript" src="services/constants.js"></script>
+    <script type="text/javascript" src="services/dao.js"></script>
+    <script type="text/javascript" src="services/utils.js"></script>
+    <script type="text/javascript" src="services/properties.js"></script>
+    <script type="text/javascript" src="services/security.js"></script>
+
+  <!-- Placed js at the end of the document so the pages load faster -->
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/modernizr.min.js"></script>
+    <script src="js/jquery.nicescroll.js"></script>
+    
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/jquery.stepy.js"></script>
+
+
+
+    <!--ios7 *********-->
+<script src="js/ios-switch/switchery.js" ></script>
+<script src="js/ios-switch/ios-init.js" ></script>
+    <!--icheck -->
+    <script src="js/iCheck/jquery.icheck.js"></script>
+    <script src="js/icheck-init.js"></script>
+        
+    <!--file upload-->
+    <script type="text/javascript" src="js/bootstrap-fileupload.min.js"></script>
+    
+
+
+ <!--wysihtml5 plugins-->
+<script type="text/javascript" src="js/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+<script type="text/javascript" src="js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+
+
+<!--common scripts for all pages-->
+<script src="js/scripts.js"></script>
+<script>
+    jQuery(document).ready(function(){
+        $('.wysihtml5').wysihtml5();
+    });
+</script>
+
+ <!-- validation stepy form Start -->
+    
+
+
+
+    </body>
+    </html>

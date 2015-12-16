@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="lambda.bilan">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="ThemeBucket">
+  <link rel="shortcut icon" href="#" type="image/png">
+  <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+  <!--dynamic table-->
+  <link href="js/advanced-datatable/css/demo_page.css" rel="stylesheet" />
+  <link href="js/advanced-datatable/css/demo_table.css" rel="stylesheet" />
+  <link rel="stylesheet" href="js/data-tables/DT_bootstrap.css" />
+
+
+  <!--ios7-->
+  <link rel="stylesheet" type="text/css" href="js/ios-switch/switchery.css" />
+
+  <!--wysihtml5 css -->
+  <link rel="stylesheet" type="text/css" href="js/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
+
+  <!--icheck-->
+  <link href="js/iCheck/skins/minimal/minimal.css" rel="stylesheet">
+  <link href="js/iCheck/skins/minimal/red.css" rel="stylesheet">
+  <link href="js/iCheck/skins/minimal/blue.css" rel="stylesheet">
+
+  <link href="js/iCheck/skins/square/square.css" rel="stylesheet">
+  <link href="js/iCheck/skins/square/red.css" rel="stylesheet">
+  <link href="js/iCheck/skins/square/blue.css" rel="stylesheet">
+
+
+
+
+  <!--file upload-->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-fileupload.min.css" />
+
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet">
+
+  <link href="css/jquery.stepy.css" rel="stylesheet">
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="js/html5shiv.js"></script>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
+
+
+  <title>Lambda : Gestion des bilans des performances</title>
+
+</head>
+
+<body class="sticky-header  left-side-collapsed" ng-controller="gestionProjetController">
+
+<section>
+  <!-- left side start-->
+  <div class="left-side sticky-left-side">
+
+    <!--logo and iconic logo start-->
+    <div class="logo">
+      <a href="index.html"><img src="images/logo.png" alt=""></a>
+    </div>
+
+    <div class="logo-icon text-center">
+      <a href="index.html"><img src="images/logo_icon.png" alt=""></a>
+    </div>
+    <!--logo and iconic logo end-->
+
+    <div class="left-side-inner">
+
+      <!-- visible to small devices only -->
+      <div class="visible-xs hidden-sm hidden-md hidden-lg">
+        <div class="media logged-user">
+          <img alt="" src="images/photos/user-avatar.png" class="media-object">
+          <div class="media-body">
+            <h4><a href="#">Anas masaaf</a></h4>
+          </div>
+        </div>
+
+        <h5 class="left-nav-title">Mon Compte</h5>
+        <ul class="nav nav-pills nav-stacked custom-nav">
+          <li><a href="#"><i class="fa fa-user"></i> <span>Profile</span></a></li>
+        </ul>
+      </div>
+
+      <!--sidebar nav start-->
+      <ul class="nav nav-pills nav-stacked custom-nav">
+        <li><a href="admin_acceuil.html"><i class="fa fa-home"></i> <span>Accueil</span></a></li>
+        <li class="active"><a href="gestion_utilisateur.html"><i class="fa fa-users"></i> <span>Gestion utilisateurs</span></a></li>
+        <li><a href="gestion_projet.html"><i class="fa fa-folder-open"></i> <span>Gestion projets</span></a></li>
+        <li><a href="login.html"><i class="fa fa-sign-in"></i> <span>Se déconnecter</span></a></li>
+
+      </ul>
+      <!--sidebar nav end-->
+
+    </div>
+  </div>
+  <!-- left side end-->
+
+  <!-- main content start-->
+  <div class="main-content" >
+
+    <!-- header section start-->
+    <div class="header-section">
+
+      <!--toggle button start-->
+      <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+      <!--toggle button end-->
+
+      <!--notification menu start -->
+      <div class="menu-right">
+        <ul class="notification-menu">
+          <li>
+            <a href="Javascript:void(0);" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              <img src="images/photos/user-avatar.png" alt="" />
+              John Doe
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+              <li><a href="#"><i class="fa fa-user"></i>  Profile</a></li>
+              <li><a href="#"><i class="fa fa-sign-out"></i> Se deconnecter</a></li>
+            </ul>
+          </li>
+
+        </ul>
+      </div>
+      <!--notification menu end -->
+
+    </div>
+    <!-- header section end-->
+    <!-- page heading start-->
+    <div class="page-heading">
+      <h3>
+        Administration <small>Gestion des projets</small>
+      </h3>
+    </div>
+    <!-- page heading end-->
+
+    <!--body wrapper start-->
+    <div class="wrapper">
+      <!-- present working link Start-->
+      <div class="row">
+        <div class="col-md-12">
+          <!--breadcrumbs start -->
+          <ul class="breadcrumb panel">
+            <li><a href='accueil.html'><i class="fa fa-home"></i> Accueil</a></li>
+            <li class="active">Gestion des projets</li>
+          </ul>
+          <!--breadcrumbs end -->
+        </div>
+      </div>
+
+
+      <!-- Message Section start-->
+      <div ng-show="errors.show" class="alert alert-block alert-danger fade in">
+        <button type="button" class="close close-sm" data-dismiss="alert">
+          <i class="fa fa-times"></i>
+        </button>
+        <strong>{{errors.title}}</strong>
+          <ul>
+            <li ng-repeat="message in errors.messages">{{message}}</li>
+          </ul>
+      </div>
+      <!-- Message Section end-->
+
+      <!-- list users-->
+      <div class="row">
+        <div class="col-sm-12">
+          <section class="panel">
+            <header class="panel-heading">
+              liste des projets
+            </header>
+            <div class="panel-body">
+              <div class="adv-table">
+                <div class="clearfix">
+                  <div class="btn-group">
+                    <a href="#addUserModal" data-toggle="modal">
+                      <button class="btn btn-primary">
+                        Ajouter un projet <i class="fa fa-plus" ></i>
+                      </button>
+                    </a>
+                  </div>
+                </div>
+                <div>
+
+                  <br>
+                  <table ng-table="tableParams" class="display table table-striped table-bordered" show-filter="true">
+                    <tr ng-repeat="projet in $data ">
+                      <td class="text-center" title="'Nom Projet'" filter=" { nomProjet:'text'}" sortable="'nomProjet'">
+                        {{projet.nomProjet}}</td>
+                      <td class="text-center" title="'Nom Evaluateur'" filter=" { evaluateur.nomUtilisateur: 'text'}" sortable="'evaluateur.nomUtilisateur'">
+                        {{projet.evaluateur.nomUtilisateur}}</td>
+                      <td class="text-center" title="'Prenom Evaluateur'" filter=" { evaluateur.prenomUtilisateur: 'text'}" sortable="'evaluateur.prenomUtilisateur'">
+                        {{projet.evaluateur.prenomUtilisateur}}</td>
+                      <td class="text-center" title="'Actions'">
+
+                        <a href="#updateUserModal" data-toggle="modal">
+                          <button class="btn btn-danger btn-xs" type="button" ng-click="modifier(projet)" title="Modifier">
+                            <i class="fa fa-pencil "></i>
+                          </button>
+                        </a>
+                        <button class="btn btn-danger btn-xs" type="button" ng-click="supprimer(projet.idProjet)" title="Supprimer">
+                          <i class="fa fa-trash-o "></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </table>
+
+
+
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- Modal Add project -->
+      <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
+           id="addProjectModal" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Ajouter Nouveau Projet</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <section class="panel">
+                  <header class="panel-heading">
+                    Projet
+                  </header>
+                  <div class="panel-body">
+                    <form class="form-horizontal" role="form">
+                      <div class="form-group">
+                        <label  class="col-lg-3 col-sm-3 control-label">Nom de projet
+                          <span class="text-danger"> *</span></label>
+                        <div class="col-lg-9">
+                          <div class="iconic-input">
+                            <i class="fa fa-paste"></i>
+                            <input ng-model="nomProjetAjouter" type="text" class="form-control"
+                                   placeholder="nom projet" required>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label col-lg-3">Evaluateur
+                          <span class="text-danger"> *</span></label>
+                        <div class="col-lg-9">
+                          <select class="form-control input-sm m-bot15" ng-model="idEvaluateurAjouter"
+                                  ng-options="evaluateur.idUtilisateur as evaluateur.nomUtilisateur
+                                                    for evaluateur in evluateurs">
+                          </select>
+                        </div>
+                      </div>
+                      <button ng-click="ajouter()" type="submit" class="finish btn btn-info btn-extend">
+                        Ajouter le projet</button>
+                    </form>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- modal add project end -->
+      <!-- Modal Update project -->
+      <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
+           id="updateProjectModal" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Mise à jour du Projet</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <section class="panel">
+                  <header class="panel-heading">
+                    Projet
+                  </header>
+                  <div class="panel-body">
+                    <form class="form-horizontal" role="form">
+                      <div class="form-group">
+                        <label class="col-lg-3 col-sm-3 control-label">Nom de projet
+                          <span class="text-danger"> *</span></label>
+                        <div class="col-lg-9">
+                          <div class="iconic-input">
+                            <i class="fa fa-paste"></i>
+                            <input   ng-model="nomProjetModifier" type="text" class="form-control"
+                                   placeholder="nom projet" required>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label col-lg-3">Evaluateur
+                          <span class="text-danger"> *</span></label>
+                        <div class="col-lg-9">
+                          <select class="form-control input-sm m-bot15" ng-model="idEvaluateurModifier"
+                                  ng-options="evaluateur.idUtilisateur as evaluateur.nomUtilisateur
+                                                    for evaluateur in evluateurs">
+                          </select>
+                        </div>
+                      </div>
+                      <input ng-model="idProjetModifier" ng-hide="true">
+                      <button ng-click="validerModification()" type="submit" class="finish btn btn-info btn-extend">
+                        Modifier le projet</button>
+                    </form>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- modal update project end -->
+    </div>
+    <!--body wrapper end-->
+
+    <!--footer section start-->
+    <footer id="footer">
+      2015 &copy; Anas & Jaouad
+    </footer>
+    <!--footer section end-->
+
+  </div>
+  <!-- main content end-->
+</section>
+
+<script type="text/javascript"  src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+<script type="text/javascript" src="controllers/administrateur/gestionProjetController.js"></script>
+<script type="text/javascript" src="services/constants.js"></script>
+<script type="text/javascript" src="services/dao.js"></script>
+<script type="text/javascript" src="services/utils.js"></script>
+<script type="text/javascript" src="services/properties.js"></script>
+<script type="text/javascript" src="services/security.js"></script>
+
+
+<!-- Placed js at the end of the document so the pages load faster -->
+
+<script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.nicescroll.js"></script>
+
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/jquery.stepy.js"></script>
+
+
+<!--icheck-->
+<script src="js/iCheck/jquery.icheck.js"></script>
+<script src="js/icheck-init.js"></script>
+
+<!--file upload-->
+<script type="text/javascript" src="js/bootstrap-fileupload.min.js"></script>
+
+
+
+<!--wysihtml5 plugins-->
+<script type="text/javascript" src="js/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+<script type="text/javascript" src="js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+
+
+<!--common scripts for all pages-->
+<script src="js/scripts.js"></script>
+<script>
+  jQuery(document).ready(function(){
+    $('.wysihtml5').wysihtml5();
+  });
+</script>
+<script src="ngTable.js"></script>
+</body>
+</html>

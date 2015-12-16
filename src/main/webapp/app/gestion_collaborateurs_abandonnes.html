@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="lambda.bilan">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="#" type="image/png">
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <!--dynamic table-->
+    <link href="js/advanced-datatable/css/demo_page.css" rel="stylesheet" />
+    <link href="js/advanced-datatable/css/demo_table.css" rel="stylesheet" />
+    <link rel="stylesheet" href="js/data-tables/DT_bootstrap.css" />
+
+
+    <!--ios7-->
+    <link rel="stylesheet" type="text/css" href="js/ios-switch/switchery.css" />
+
+    <!--wysihtml5 css -->
+    <link rel="stylesheet" type="text/css" href="js/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
+
+    <!--icheck-->
+    <link href="js/iCheck/skins/minimal/minimal.css" rel="stylesheet">
+    <link href="js/iCheck/skins/minimal/red.css" rel="stylesheet">
+    <link href="js/iCheck/skins/minimal/blue.css" rel="stylesheet">
+
+    <link href="js/iCheck/skins/square/square.css" rel="stylesheet">
+    <link href="js/iCheck/skins/square/red.css" rel="stylesheet">
+    <link href="js/iCheck/skins/square/blue.css" rel="stylesheet">
+
+
+
+
+    <!--file upload-->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-fileupload.min.css" />
+
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet">
+
+    <link href="css/jquery.stepy.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+
+    <title>Lambda : Gestion des bilans des performances</title>
+
+</head>
+
+<body class="sticky-header  left-side-collapsed" ng-controller="gestionUtilisateurController">
+
+<section>
+    <!-- left side start-->
+    <div class="left-side sticky-left-side">
+
+        <!--logo and iconic logo start-->
+        <div class="logo">
+            <a href="index.html"><img src="images/logo.png" alt=""></a>
+        </div>
+
+        <div class="logo-icon text-center">
+            <a href="index.html"><img src="images/logo_icon.png" alt=""></a>
+        </div>
+        <!--logo and iconic logo end-->
+
+        <div class="left-side-inner">
+
+            <!-- visible to small devices only -->
+            <div class="visible-xs hidden-sm hidden-md hidden-lg">
+                <div class="media logged-user">
+                    <img alt="" src="images/photos/user-avatar.png" class="media-object">
+                    <div class="media-body">
+                        <h4><a href="#">Anas masaaf</a></h4>
+                    </div>
+                </div>
+
+                <h5 class="left-nav-title">Mon Compte</h5>
+                <ul class="nav nav-pills nav-stacked custom-nav">
+                    <li><a href="#"><i class="fa fa-user"></i> <span>Profile</span></a></li>
+                </ul>
+            </div>
+
+            <!--sidebar nav start-->
+            <ul class="nav nav-pills nav-stacked custom-nav">
+                <li><a href="admin_acceuil.html"><i class="fa fa-home"></i> <span>Accueil</span></a></li>
+                <li class="active"><a href="gestion_utilisateur.html"><i class="fa fa-users"></i> <span>Gestion utilisateurs</span></a></li>
+                <li><a href="gestion_projet.html"><i class="fa fa-folder-open"></i> <span>Gestion projets</span></a></li>
+                <li><a href="login.html"><i class="fa fa-sign-in"></i> <span>Se déconnecter</span></a></li>
+
+            </ul>
+            <!--sidebar nav end-->
+
+        </div>
+    </div>
+    <!-- left side end-->
+
+    <!-- main content start-->
+    <div class="main-content" >
+
+        <!-- header section start-->
+        <div class="header-section">
+
+            <!--toggle button start-->
+            <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+            <!--toggle button end-->
+
+            <!--notification menu start -->
+            <div class="menu-right">
+                <ul class="notification-menu">
+                    <li>
+                        <a href="Javascript:void(0);" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <img src="images/photos/user-avatar.png" alt="" />
+                            John Doe
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                            <li><a href="#"><i class="fa fa-user"></i>  Profile</a></li>
+                            <li><a href="#"><i class="fa fa-sign-out"></i> Se deconnecter</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!--notification menu end -->
+
+        </div>
+        <!-- header section end-->
+        <!-- page heading start-->
+        <div class="page-heading">
+            <h3>
+                Administration <small>Gestion des utilisateurs</small>
+            </h3>
+        </div>
+        <!-- page heading end-->
+
+        <!--body wrapper start-->
+        <div class="wrapper">
+            <!-- present working link Start-->
+            <div class="row">
+                <div class="col-md-12">
+                    <!--breadcrumbs start -->
+                    <ul class="breadcrumb panel">
+                        <li><a href='accueil.html'><i class="fa fa-home"></i> Accueil</a></li>
+                        <li class="active">Gestion des utilisateurs</li>
+                    </ul>
+                    <!--breadcrumbs end -->
+                </div>
+            </div>
+
+
+            <!-- Message Section start-->
+            <div ng-show="errors.show" class="alert alert-block alert-danger fade in">
+                <button type="button" class="close close-sm" data-dismiss="alert">
+                    <i class="fa fa-times"></i>
+                </button>
+                <strong>{{errors.title}}</strong>
+                <ul>
+                    <li ng-repeat="message in errors.messages">{{message}}</li>
+                </ul>
+            </div>
+            <!-- Message Section end-->
+
+            <!-- list users-->
+            <div class="row">
+                <div class="col-sm-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            liste des Collaborateurs abandonnés
+                        </header>
+                        <div class="panel-body">
+                            <div class="adv-table">
+                                <div>
+
+                                    <br>
+                                    <table ng-table="tableParams" class="display table table-striped table-bordered" show-filter="true">
+                                        <tr ng-repeat="utilisateur in $data | filter:{etatCollaborateur:'false'}">
+                                            <td class="text-center" title="'Nom'" filter=" { nomUtilisateur:'text'}" sortable="'nomUtilisateur'">
+                                                {{utilisateur.nomUtilisateur}}</td>
+                                            <td class="text-center" title="'Prénom'" filter=" { prenomUtilisateur: 'text'}" sortable="'prenomUtilisateur'">
+                                                {{utilisateur.prenomUtilisateur}}</td>
+                                            <td class="text-center" title="'Sexe'" filter=" { sexeUtilisateur: 'text'}" sortable="'sexeUtilisateur'">
+                                                {{utilisateur.sexeUtilisateur}}</td>
+                                            <td class="text-center" title="'Email'" filter="{emailUtilisateur: 'text'}" sortable="'emailUtilisateur'">
+                                                {{utilisateur.emailUtilisateur}}</td>
+                                            <td class="text-center" title="'Téléphone'" filter="{ telephoneUtilisateur: 'text'}" sortable="'telephoneUtilisateur'">
+                                                {{utilisateur.telephoneUtilisateur}}</td>
+                                            <td class="text-center" title="'Role'" filter=" { role: 'text'}" sortable="'role'">
+                                                {{utilisateur.role}}</td>
+                                            <td class="text-center" title="'Actions'">
+
+                                                <a href="#updateUserModal" data-toggle="modal">
+                                                    <button class="btn btn-danger btn-xs" type="button" ng-click="actions.modifier(utilisateur.idUtilisateur,utilisateur.role)" title="Modifier">
+                                                        <i class="fa fa-pencil "></i>
+                                                    </button>
+                                                </a>
+                                                <button class="btn btn-danger btn-xs" type="button" ng-click="actions.supprimer(utilisateur.idUtilisateur)" title="Supprimer">
+                                                    <i class="fa fa-trash-o "></i>
+                                                </button>
+
+                                            </td>
+                                        </tr>
+                                    </table>
+
+
+
+                                </div>
+                                <div>
+
+                                    <div class="col-sm-9 icheck">
+                                        <div class="square-red ">
+                                            <div class="radio ">
+                                                <input tabindex="3" type="radio" ng-model="papa" value="Femme" name="demo-radio" >
+                                                <label>Femme </label>
+                                            </div>
+                                        </div>
+                                        <div class="square-blue">
+                                            <div class="radio ">
+                                                <input tabindex="3" type="radio" ng-model="papa" value="Homme" name="demo-radio"
+                                                       checked="checked">
+                                                <label>Homme </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button ng-click="fct()">click</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Modal update user start-->
+            <div ng-controller="modifierUtilisateurController" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="updateUserModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Modifier l'utilisateur</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="square-widget">
+                                        <div class="widget-container">
+                                            <div class="stepy-tab">
+                                            </div>
+                                            <form id="update_collaborateur" class=" form-horizontal left-align form-well">
+                                                <!-- Etape 1 start -->
+                                                <fieldset title="Etape 1">
+                                                    <legend>Information personnelle</legend>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-sm-4">Photo de profil</label>
+                                                        <div class="col-sm-8">
+                                                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                                <div class="fileupload-new thumbnail"
+                                                                     style="width: 200px; height: 150px;">
+                                                                    <img src="/images/select_image.gif" alt="">
+                                                                </div>
+                                                                <div
+                                                                        class="fileupload-preview fileupload-exists thumbnail"
+                                                                        style="max-width: 200px; max-height: 150px; line-height: 20px;">
+                                                                </div>
+                                                                <div>
+                                                                            <span class="btn btn-default btn-file"> <span
+                                                                                    class="fileupload-new col-sm-12"><i
+                                                                                    class="fa fa-paper-clip"></i>Choisir une image</span> <span
+                                                                                    class="fileupload-exists"><i class="fa fa-undo"></i>
+                                                                                Modifier</span>
+                                                                                <input name="fileImage" class="default" type="file"
+                                                                                       accept=".jpeg,.png,.gif,.jpg" >
+
+                                                                            </span> <a href="#" class="btn btn-danger fileupload-exists"
+                                                                                       data-dismiss="fileupload">
+                                                                    <i class="fa fa-trash"></i>Supprimer</a>
+                                                                </div>
+                                                            </div>
+                                                            <br>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputLastName_2" class="col-sm-3 control-label">Nom<span
+                                                                class="text-danger"> *</span></label>
+                                                        <div class="col-sm-9">
+                                                            <input ng-model="nom" name="nom" class="form-control" placeholder="Nom" type="text" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputLastName_2" class="col-sm-3 control-label">Prenom<span
+                                                                class="text-danger"> *</span></label>
+                                                        <div class="col-sm-9">
+                                                            <input ng-model="prenom" name="prenom" class="form-control" placeholder="Prenom" type="text"
+                                                                   required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <h5 class="text-danger" style="text-align: right;" >(*) champs
+                                                            obligatoire</h5>
+                                                    </div>
+                                                </fieldset>
+                                                <!-- Etape 1 end -->
+                                                <!-- Etape 2 start -->
+                                                <fieldset title="Etape 2">
+                                                    <legend>Autres</legend>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-5">Date de naissance
+                                                            <span class="text-danger"> *</span></label>
+                                                        <div class="col-md-6 col-xs-11">
+
+                                                            <mydatepicker ng-model="formData.dateNaissance" date-options="dateOptions" opened="opened"/>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-5">Sexe
+                                                            <span class="text-danger"> *</span></label>
+                                                        <div class="col-md-6">
+                                                            <div class="col-sm-9 icheck">
+                                                                <div class="square-red ">
+                                                                    <div class="radio ">
+                                                                        <input tabindex="3" type="radio"  name="demo-radio" >
+                                                                        <label>Femme </label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="square-blue">
+                                                                    <div class="radio ">
+                                                                        <input tabindex="3" type="radio"  name="demo-radio"
+                                                                               checked="checked">
+                                                                        <label>Homme </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-5">Role
+                                                            <span class="text-danger"> *</span></label>
+                                                        <div class="col-lg-7">
+                                                            <select ng-model="role" class="form-control input-sm m-bot15">
+                                                                <option value="Administrateur">Administrateur</option>
+                                                                <option value="Collaborateur">Collaborateur</option>
+                                                                <option value="Evaluateur">Evaluateur</option>
+                                                                <option value="ManagerRH">Manager RH</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <h5 class="text-danger" style="text-align: right;" >(*) champs
+                                                            obligatoire</h5>
+                                                    </div>
+                                                </fieldset>
+                                                <!-- Etape 2 end -->
+                                                <!-- Etape 3 start -->
+                                                <fieldset title="Etape 3">
+                                                    <legend>Contact</legend>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-5">Email
+                                                            <span class="text-danger"> *</span></label>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <input ng-model="email" name="email" type="email" placeholder="email" class="form-control"
+                                                                   required >
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-5">Telephone
+                                                            <span class="text-danger"> *</span></label>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <input ng-model="telephone" name="telephone" type="text"
+                                                                   placeholder="Ex: 0611513305" class="form-control"
+                                                                   pattern="^0[5-6]{1}\d{8}"  required >
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-5">Adresse
+                                                            <span class="text-danger"> *</span></label>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <input ng-model="adresse" name="adresse" type="text"
+                                                                   placeholder="Ex: lot GHITA N12 Casablanca"
+                                                                   class="form-control" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <h5 class="text-danger" style="text-align: right;" >(*) champs
+                                                            obligatoire</h5>
+                                                    </div>
+                                                </fieldset>
+                                                <!-- Etape 3 end -->
+                                                <!-- Etape 4 start -->
+                                                <fieldset title="Etape 4">
+                                                    <legend>Confirmation</legend>
+                                                    <div ng-show="role=='Collaborateur'" class="form-group">
+                                                        <label class="control-label col-md-5">Date d'Embauche
+                                                            <span class="text-danger"> *</span></label>
+
+                                                        <div class="col-md-6 col-xs-11">
+                                                            <mydatepicker ng-model="formData.dateNaissance" date-options="dateOptions" opened="opened"/>
+                                                        </div>
+
+                                                    </div>
+                                                    <div ng-show="role=='Collaborateur'" class="form-group">
+                                                        <label class="control-label col-md-5">Poste actuel
+                                                            <span class="text-danger"> *</span></label>
+                                                        <div class="col-lg-6">
+                                                            <select class="control-label col-md-5" ng-model="posteActuel"
+                                                                    ng-options="posteActuel.code as posteActuel.code
+                                                    for posteActuel in posteActuels">
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div ng-show="role=='Collaborateur'" class="form-group">
+                                                        <label class="control-label col-md-5">Manager RH
+                                                            <span class="text-danger"> *</span></label>
+                                                        <div class="col-lg-6">
+                                                            <select class="control-label col-md-5" ng-model="idManagerRH"
+                                                                    ng-options="managerRH.idUtilisateur as managerRH.nomUtilisateur
+                                                    for managerRH in utilisateurs|filter: {role:'ManagerRH'}">
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                <!-- Etape 4 end -->
+                                                <button ng-click="validerModification()" type="submit" class="finish btn btn-info btn-extend">
+                                                    Modifier l'utilisateur</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal update user end-->
+        </div>
+        <!--body wrapper end-->
+
+        <!--footer section start-->
+        <footer id="footer">
+            2015 &copy; Anas & Jaouad
+        </footer>
+        <!--footer section end-->
+
+    </div>
+    <!-- main content end-->
+</section>
+
+<script type="text/javascript"  src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+<script type="text/javascript" src="controllers/administrateur/gestionUtilisateurController.js"></script>
+<script type="text/javascript" src="controllers/administrateur/ajouterUtilisateurController.js"></script>
+<script type="text/javascript" src="controllers/administrateur/supprimerUtilisateurController.js"></script>
+<script type="text/javascript" src="controllers/administrateur/modifierUtilisateurController.js"></script>
+<script type="text/javascript" src="directives/mydatepicker.js"></script>
+<script type="text/javascript" src="services/constants.js"></script>
+<script type="text/javascript" src="services/dao.js"></script>
+<script type="text/javascript" src="services/utils.js"></script>
+<script type="text/javascript" src="services/properties.js"></script>
+<script type="text/javascript" src="services/security.js"></script>
+
+
+<!-- Placed js at the end of the document so the pages load faster -->
+
+<script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.nicescroll.js"></script>
+
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/jquery.stepy.js"></script>
+
+
+<!--icheck-->
+<script src="js/iCheck/jquery.icheck.js"></script>
+<script src="js/icheck-init.js"></script>
+
+<!--file upload-->
+<script type="text/javascript" src="js/bootstrap-fileupload.min.js"></script>
+
+
+
+<!--wysihtml5 plugins-->
+<script type="text/javascript" src="js/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+<script type="text/javascript" src="js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+
+
+<!--common scripts for all pages-->
+<script src="js/scripts.js"></script>
+<script>
+    jQuery(document).ready(function(){
+        $('.wysihtml5').wysihtml5();
+    });
+</script>
+
+<!-- validation stepy form Start -->
+<script>
+    /*=====STEPY WIZARD====*/
+    $(function() {
+        $('#update_collaborateur').stepy({
+            backLabel: 'précédent',
+            block: true,
+            nextLabel: 'Suivant',
+            titleClick: true,
+            titleTarget: '.stepy-tab'
+        });
+    });
+</script>
+<script src="ngTable.js"></script>
+</body>
+</html>
