@@ -1,6 +1,4 @@
-package com.lambda.bilan.web.controllers.administrateur;
-
-import java.sql.Date;
+package com.lambda.bilan.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,39 +13,24 @@ import com.lambda.bilan.entities.Evaluateur;
 import com.lambda.bilan.entities.ManagerRH;
 import com.lambda.bilan.entities.Utilisateur;
 import com.lambda.bilan.helpers.LambdaException;
-import com.lambda.bilan.helpers.PropretiesHelper;
-import com.lambda.bilan.metier.IBAPMetier;
-import com.lambda.bilan.metier.IFeedBackMetier;
-import com.lambda.bilan.metier.IMailMetier;
-import com.lambda.bilan.metier.IObjectifMetier;
-import com.lambda.bilan.metier.IPlanAmeliorationMetier;
 import com.lambda.bilan.metier.IUtilisateurMetier;
 import com.lambda.bilan.web.helpers.ExceptionHelpers;
 import com.lambda.bilan.web.helpers.RandomGenerator;
-import com.lambda.bilan.web.models.UtilisateurModel;
+import com.lambda.bilan.web.helpers.PropretiesHelper;
 import com.lambda.bilan.web.models.Reponse;
+import com.lambda.bilan.web.models.UpdatePasswordModel;
+import com.lambda.bilan.web.models.UtilisateurModel;
 
 @RestController
-public class GestionUtilisateur{
+public class UtilisateurController {
 
 	@Autowired
 	IUtilisateurMetier utilisateurMetier;
-	@Autowired
-	IBAPMetier bapMetier;
-	@Autowired
-	IFeedBackMetier feedBackMetier;
-	@Autowired
-	IObjectifMetier objectifMetier;
-	@Autowired
-	IPlanAmeliorationMetier planAmeliorationMetier;
-	/*@Autowired
-	IMailMetier mailMetier;
-*/
+
 
 	/*
-	 * Ajouter les utilisateurs 
+	 * Ajouter un utilisateur 
 	 */
-
 	//collaborateur
 	@RequestMapping(value = "/collaborateurs", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
 	public Reponse addColaborateur(@RequestBody Collaborateur collaborateur) {
@@ -113,7 +96,7 @@ public class GestionUtilisateur{
 	}
 
 	/*
-	 * Mise a jour des utilisateurs
+	 * Mise a jour d'un utilisateur
 	 */
 
 	//collaborateur
@@ -158,6 +141,20 @@ public class GestionUtilisateur{
 		return new Reponse(0, PropretiesHelper.getText("utilisateur.update.success"));
 	}
 
+	//administrateur
+	@RequestMapping(value = "/administrateurs/{id}", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
+	public Reponse updateAdministrateur(@PathVariable("id") Long id, @RequestBody Administrateur administrateur)  {
+		try {
+			if(administrateur.getIdUtilisateur().equals(id))
+				utilisateurMetier.updateUtilisateur(administrateur);
+			else
+				return new Reponse(0, PropretiesHelper.getText("general.update.fail"));
+		} catch (LambdaException e) {
+			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
+		}
+		return new Reponse(0, PropretiesHelper.getText("utilisateur.update.success"));
+	}
+
 	/*
 	 * obtenir un utilisateur
 	 */
@@ -184,24 +181,25 @@ public class GestionUtilisateur{
 		return new Reponse(0, PropretiesHelper.getText("utilisateur.delete.success"));
 	}
 
+
 	/*
-	 * Envoyer un mail
+	 * mise a jour du mot de passe
 	 */
-
-	@RequestMapping(value = "/mails", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
-	public Reponse sendMail(@RequestBody String mail /*Objet mail */  ) {
-		/*try {
-
-		} catch (LambdaException e) {
+	@RequestMapping(value = "/profils" , method = RequestMethod.PUT , consumes = "application/json; charset=UTF-8")
+	public Reponse updatepassword(@RequestBody UpdatePasswordModel getUpdatePassword){
+		try {
+			Utilisateur utilisateur = utilisateurMetier.getUtilisateur(getUpdatePassword.getIdUtilisateur());
+			if(utilisateur.getPasswordUtilisateur().equals(getUpdatePassword.getCurrentPassword()))
+				utilisateurMetier.updatePassword(getUpdatePassword.getNewPassword(),getUpdatePassword.getIdUtilisateur());
+		} catch (Exception e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
-		}*/
-		return new Reponse(0, PropretiesHelper.getText("utilisateur.email.success"));
+		}
+		return new Reponse(0, PropretiesHelper.getText("utilisateur.update.password.success"));
 	}
 
 	/*
 	 * depart d'un collaborateur
 	 */
-
 	@RequestMapping(value = "/utilisateur/{id}", method = RequestMethod.PUT)
 	public Reponse departCollaborateur(@PathVariable("id") Long id) {
 		try {
@@ -212,8 +210,9 @@ public class GestionUtilisateur{
 		return new Reponse(0, PropretiesHelper.getText("utilisateur.update.success"));
 	}
 
+
 	/*
-	 * Liste de {methode}
+	 * Liste des utilisateurs
 	 */
 	@RequestMapping(value = "/utilisateurs" , method = RequestMethod.GET)
 	public Reponse getAllUtilisateur()  {
@@ -224,6 +223,9 @@ public class GestionUtilisateur{
 		}
 	}
 
+	/*
+	 * liste des collaborateurs abondonner
+	 */
 	@RequestMapping(value = "/oldcollaborateurs" , method = RequestMethod.GET)
 	public Reponse getAllOldCollaborateur()  {
 		try {
@@ -233,6 +235,9 @@ public class GestionUtilisateur{
 		}
 	}
 
+	/*
+	 * liste des managerRH
+	 */
 	@RequestMapping(value = "/managerRHs" , method = RequestMethod.GET)
 	public Reponse getAllManagerRH()  {
 		try {
@@ -242,44 +247,28 @@ public class GestionUtilisateur{
 		}
 	}
 
-	@RequestMapping(value = "/collaborateurs/{id}/bap" , method = RequestMethod.GET)
-	public Reponse getAllBAPOfCollaborateur(@PathVariable("id") Long id) {
+	/*
+	 * liste des collaborateurs sans projets
+	 */
+	@RequestMapping(value="/collaborateurs_without_projet", method=RequestMethod.GET)
+	public Reponse getAllCollaborateurWithoutProjet(){
 		try {
-			return new Reponse(0,bapMetier.getAllBAPOfCollaborateur(id));
+			return new Reponse(0,utilisateurMetier.getAllCollaborateurWithoutProject());
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
 	}
 
-	@RequestMapping(value = "/collaborateurs/{id}/feedBack" , method = RequestMethod.GET)
-	public Reponse getAllfeedBackOfCollaborateurByYear(@PathVariable("id") Long id,Date year) {
+	/*
+	 * liste des collaborateurs sans Objectifs
+	 */
+	@RequestMapping(value="/collaborateurs_without_objectif" , method = RequestMethod.GET)
+	public Reponse getAllCollaborateurWithoutObjectif(){
 		try {
-			Collaborateur collaborateur = new Collaborateur(id);
-			return new Reponse(0,feedBackMetier.getAllfeedBackOfCollaborateurByYear(collaborateur, year));
+			return new Reponse(0,utilisateurMetier.getAllCollaborateurWithoutObjectif());
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
 	}
-
-	@RequestMapping(value = "/collaborateurs/{id}/ficheObjectifs" , method = RequestMethod.GET)
-	public Reponse getFicheObjectifsOfCollaborateurByYear(@PathVariable("id") Long id ,Date year) {
-		try {
-			Collaborateur collaborateur = new Collaborateur(id);
-			return new Reponse(0,objectifMetier.getFicheObjectifsOfCollaborateurByYear(collaborateur, year));
-		} catch (LambdaException e) {
-			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
-		}
-	}
-
-	@RequestMapping(value = "/collaborateurs/{id}/planAmelioration" , method = RequestMethod.GET)
-	public Reponse getPlanAmeliorationOfCollaborateurByYear(@PathVariable("id") Long id ,Date year) {
-		try {	
-			Collaborateur collaborateur = new Collaborateur(id);
-			return new Reponse(0,planAmeliorationMetier.getPlanAmeliorationOfCollaborateurByYear(collaborateur, year));
-		} catch (LambdaException e) {
-			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
-		}
-	}
-
 
 }

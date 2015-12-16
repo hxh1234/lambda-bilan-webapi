@@ -45,7 +45,7 @@ public class UtilisateurModel {
 			hash.put("role", "Administrateur");
 		}
 		if(utilisateur.getClass().getName()==EVALUATEUR_CLASS){
-			hash.put("role", "evaluateur");
+			hash.put("role", "Evaluateur");
 		}
 		return hash;
 	}
