@@ -24,7 +24,7 @@ public class FeedBackContoller {
 	/*
 	 * liste des feedback d'un collaborateur
 	 */
-	@RequestMapping(value = "/collaborateurs/{id}/feedBack" , method = RequestMethod.GET)
+	@RequestMapping(value = "/collaborateurs/{id}/feedBacks" , method = RequestMethod.GET)
 	public Reponse getAllfeedBackOfCollaborateurByYear(@PathVariable("id") Long id,Date year) {
 		try {
 			Collaborateur collaborateur = new Collaborateur(id);

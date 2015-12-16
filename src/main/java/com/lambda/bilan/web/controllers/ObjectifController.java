@@ -15,6 +15,7 @@ import com.lambda.bilan.entities.Objectif;
 import com.lambda.bilan.helpers.LambdaException;
 import com.lambda.bilan.metier.IMesureMetier;
 import com.lambda.bilan.metier.IObjectifMetier;
+import com.lambda.bilan.metier.IUtilisateurMetier;
 import com.lambda.bilan.web.helpers.ExceptionHelpers;
 import com.lambda.bilan.web.helpers.PropretiesHelper;
 import com.lambda.bilan.web.models.EvaluationObjectifBAPModel;
@@ -28,7 +29,8 @@ public class ObjectifController {
 	IObjectifMetier objectifMetier;
 	@Autowired
 	IMesureMetier mesureMetier;
-
+	@Autowired
+	IUtilisateurMetier utilisateurMetier;
 	/*
 	 * Ajouter des objectifs
 	 */
@@ -145,6 +147,20 @@ public class ObjectifController {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
 	}
+	
+	/*
+	 * liste des objectifs d'un collaborateur cette année
+	 */
+	@RequestMapping(value = "/collaborateurs/{id}/objectifs", method = RequestMethod.GET)
+	public Reponse getAllObjectifsOfCollaborateurThisYear(@PathVariable("id") Long id){
+		try {
+			Collaborateur collaborateur = (Collaborateur) utilisateurMetier.getUtilisateur(id);
+			System.out.println(collaborateur.getIdUtilisateur() + "  "+ collaborateur.getNomUtilisateur());
+			return new Reponse(0,objectifMetier.getAllObjectifsOfCollaborateurThisYear(collaborateur));
+		} catch (LambdaException e) {
+			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
+		}
+	}
 
 	/*
 	 * Evaluation des objectifs de cette année et definition des objectifs de l’année prochaine (en BAP)
@@ -158,7 +174,6 @@ public class ObjectifController {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
 		return new Reponse(0,PropretiesHelper.getText("objectif.add.success"));
-
 	}
 
 

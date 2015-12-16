@@ -13,6 +13,7 @@ import com.lambda.bilan.entities.Evaluateur;
 import com.lambda.bilan.entities.ManagerRH;
 import com.lambda.bilan.entities.Utilisateur;
 import com.lambda.bilan.helpers.LambdaException;
+import com.lambda.bilan.metier.IMailMetier;
 import com.lambda.bilan.metier.IUtilisateurMetier;
 import com.lambda.bilan.web.helpers.ExceptionHelpers;
 import com.lambda.bilan.web.helpers.RandomGenerator;
@@ -26,7 +27,8 @@ public class UtilisateurController {
 
 	@Autowired
 	IUtilisateurMetier utilisateurMetier;
-
+	//@Autowired
+	//IMailMetier mailMetier;
 
 	/*
 	 * Ajouter un utilisateur 
@@ -35,7 +37,6 @@ public class UtilisateurController {
 	@RequestMapping(value = "/collaborateurs", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
 	public Reponse addColaborateur(@RequestBody Collaborateur collaborateur) {
 		try {
-
 			//Generer un password
 			String passwordUtilisateur = RandomGenerator.randomString();
 			collaborateur.setPasswordUtilisateur(passwordUtilisateur);

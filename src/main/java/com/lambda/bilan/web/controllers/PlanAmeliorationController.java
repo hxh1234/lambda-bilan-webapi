@@ -23,7 +23,7 @@ public class PlanAmeliorationController {
 	/*
 	 * plan Amelioration d'un collaborateur
 	 */
-	@RequestMapping(value = "/collaborateurs/{id}/planAmelioration" , method = RequestMethod.GET)
+	@RequestMapping(value = "/collaborateurs/{id}/planAmeliorations" , method = RequestMethod.GET)
 	public Reponse getPlanAmeliorationOfCollaborateurByYear(@PathVariable("id") Long id ,Date year) {
 		try {	
 			Collaborateur collaborateur = new Collaborateur(id);
