@@ -1,5 +1,8 @@
 package com.lambda.bilan.web.controllers;
 
+import java.sql.Date;
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,11 +16,10 @@ import com.lambda.bilan.entities.Evaluateur;
 import com.lambda.bilan.entities.ManagerRH;
 import com.lambda.bilan.entities.Utilisateur;
 import com.lambda.bilan.helpers.LambdaException;
-import com.lambda.bilan.metier.IMailMetier;
 import com.lambda.bilan.metier.IUtilisateurMetier;
 import com.lambda.bilan.web.helpers.ExceptionHelpers;
-import com.lambda.bilan.web.helpers.RandomGenerator;
 import com.lambda.bilan.web.helpers.PropretiesHelper;
+import com.lambda.bilan.web.helpers.RandomGenerator;
 import com.lambda.bilan.web.models.Reponse;
 import com.lambda.bilan.web.models.UpdatePasswordModel;
 import com.lambda.bilan.web.models.UtilisateurModel;
@@ -273,5 +275,36 @@ public class UtilisateurController {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
 	}
-
+	
+	/*
+	 * liste collaborateur d'un mangerRH
+	 */
+	@RequestMapping(value="/managerRHs/{id}/collaborateurs" , method = RequestMethod.GET)
+	public Reponse getAllCollaborateurOfManagerRH(@PathVariable("id") Long id){
+		try {
+			return new Reponse(0,utilisateurMetier.getAllCollaborateurOfManagerRH(id));
+		} catch (LambdaException e) {
+			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
+		}
+	}
+	
+	/*
+	 * liste collaborateur pour un projet
+	 */
+	@RequestMapping(value="/projets/{id}/collaborateurs" , method = RequestMethod.GET)
+	public Reponse getAllCollaborateurOfProjet(@PathVariable("id") Long id){
+		try {
+			return new Reponse(0,UtilisateurModel.listeCollaborateurForProjet(id, utilisateurMetier.getAllCollaborateurOfProjet(id)));
+		} catch (LambdaException e) {
+			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
+		}
+	}
+	
+	/*
+	 * date serveur
+	 */
+	@RequestMapping(value="/date_serveur" , method = RequestMethod.GET)
+	public Date getDateServeur(){
+		return new Date(Calendar.getInstance().getTime().getTime());
+	}
 }
