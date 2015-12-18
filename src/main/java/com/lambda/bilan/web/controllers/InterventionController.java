@@ -62,19 +62,17 @@ public class InterventionController {
 	/*
 	 * definir intervantion (par un Evaluateur)
 	 */
-	@RequestMapping(value = "/interventions/{id}", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
-	public Reponse defineIntervention(@PathVariable("id") Long id, @RequestBody Intervention intervention)  {
+	@RequestMapping(value = "/interventions/{idProjet}/{idCollaborateur}", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
+	public Reponse defineIntervention(@PathVariable("idProjet") Long idProjet,@PathVariable("idCollaborateur") Long idCollaborateur, @RequestBody Intervention intervention)  {
 		try {
-			if(intervention.getIdIntervention().equals(id))
-				interventionMetier.defineIntervention(intervention);
-			else
-				return new Reponse(0, PropretiesHelper.getText("general.update.fail"));
+			intervention.setIdIntervention(interventionMetier.getIntervention(idProjet, idCollaborateur).getIdIntervention());
+			interventionMetier.defineIntervention(intervention);
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
 		return new Reponse(0, PropretiesHelper.getText("intervention.update.success"));
 	}
-	
+
 	/*
 	 * liste des themes
 	 */
@@ -86,7 +84,7 @@ public class InterventionController {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
 	}
-	
+
 	/*
 	 * liste des qualifications
 	 */
@@ -98,7 +96,7 @@ public class InterventionController {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
 	}
-	
+
 	/*
 	 * Creer feedback
 	 */
