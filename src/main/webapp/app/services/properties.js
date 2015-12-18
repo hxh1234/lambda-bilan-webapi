@@ -18,13 +18,24 @@ angular.module("lambda.bilan")
       listerObjRefusError:"Les erreurs suivantes se sont produites lors du chargement de la liste " +
       "des collaborateurs sans objectif ",
       supprimerObjectifError:"Les erreurs suivantes se sont produites lors de la suppression de l'objectif",
-      modifierObjectifErrors:"Les erreurs suivantes se sont produites lors de la modification de l'objectif",
+      modifierObjectifError:"Les erreurs suivantes se sont produites lors de la modification de l'objectif",
       validerObjectifError:"Les erreurs suivantes se sont produites lors de la validation de l'objectif",
       affecterProjetError:"Les erreurs suivantes se sont produites lors de l'affectation des projets",
-      ajouterObjectifsErrors:"Les erreurs suivantes se sont produites lors de l'ajout des objectifs",
-      recuperationsProjetsErrors:"Les erreurs suivantes se sont produites lors de la recuperation des projet au serveurs",
-      recuperationsCategoriesErrors:"Les erreurs suivantes se sont produites lors de la recuperation des categories au serveurs",
-
+      ajouterObjectifsError:"Les erreurs suivantes se sont produites lors de l'ajout des objectifs",
+      ajouterObjectifError:"Les erreurs suivantes se sont produites lors de l'ajout de l'objectif",
+      recuperationsProjetsError:"Les erreurs suivantes se sont produites lors de la recuperation des projet au serveurs",
+      recuperationsCategoriesError:"Les erreurs suivantes se sont produites lors de la recuperation des categories au serveurs",
+      supprimerMesureError:"Les erreurs suivantes se sont produites lors de la suppression de la mesure",
+      ajouterMesureError:"Les erreurs suivantes se sont produites lors de l'ajout de la mesure",
+      modifierMesureError:"Les erreurs suivantes se sont produites lors de la modification de la mesure",
+      listerObjectifError: "Les erreurs suivantes se sont produites lors du chargement de la liste des objectifs du collaborateur",
+      recuperationsRespError:"Les erreurs suivantes se sont produites lors de la recuperation des resp. mesures au serveurs",
+      validerBAPError:"Les erreurs suivantes se sont produites lors de la validation du BAP",
+      listerBapError:"Les erreurs suivantes se sont produites lors du chargement  des BAP",
+      listerFicheError:"Les erreurs suivantes se sont produites lors du chargement  de la fiche",
+      listerFeedbackError:"Les erreurs suivantes se sont produites lors du chargement  des feedbacks",
+      listerCollabError:"Les erreurs suivantes se sont produites lors du chargement  des collaborateurs",
+      recuperationObjectifError:"Les erreurs suivantes se sont produites lors du chargement  des objectifs aua serveur",
       //Erreurs http
       error_unknown: "Erreur non identifiée",
       not_authorized: "Erreur d'authentification",
@@ -42,6 +53,7 @@ angular.module("lambda.bilan")
       urlEvaluateur:"/evaluateurs",
       urlAdministrateur:"/administrateurs",
       urlProjet:"/projets",
+      urlRespMesure:"/responsables_mesures",
       urlCategorie:"/categories",
       urlManagerRH:"/managerRHs",
       urlLogin:"/login",
@@ -49,9 +61,12 @@ angular.module("lambda.bilan")
       urlCollabsSansObj:"/collaborateurs_without_objectif",
       urlObjRefus:"/objectifs_refus",
       urlObjectif:"/objectifs",
+      urlMesure:"/mesures",
       urlValiderObjectif:"/objectifs_valider",
       urlRefuserObjectif:"/objectifs_refuser",
       urlAffecterProjet:"/interventions",
+      urlEvaluationObjectif:"/objectifs_evaluation",
+
 
 
 

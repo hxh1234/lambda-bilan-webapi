@@ -6,10 +6,10 @@ app.controller("managerRhAccueilController",
     ['$scope', '$filter','security', 'HTTP_METHOD','properties', 'utils','dao',
         function ($scope, $filter ,security, HTTP_METHOD, properties , utils,dao ) {
 
-            var idManagerRH=11;
+            var idManagerRH=1;
 
             $scope.collabsSansProjet=[];
-            var listerCollabsSansProjet = function(){
+            var listerCollabSansProjet = function(){
                 //get les collabs sans projet
                 var task = dao.getData(properties.urlCollabsSansProjet, null, HTTP_METHOD.get);
                 //on attent la reponse...
@@ -30,10 +30,10 @@ app.controller("managerRhAccueilController",
                     }
                 });
             };
-            listerCollabsSansProjet();
+            listerCollabSansProjet();
 
             $scope.collabsSansObj=[];
-            var listerCollabsSansObj=function(){
+            var listerCollabSansObj=function(){
                 //get les collabs sans objectifs
                 var task = dao.getData(properties.urlCollabsSansObj, null, HTTP_METHOD.get);
                 //on attent la reponse...
@@ -54,10 +54,10 @@ app.controller("managerRhAccueilController",
                     }
                 });
             };
-            listerCollabsSansObj();
+            listerCollabSansObj();
 
             $scope.objectifsRef=[];
-            var listerObjectifsRef=function(){
+            var listerObjectif=function(){
                     //get les objectifs refusés
                     var task = dao.getData(properties.urlObjRefus+"/"+idManagerRH, null, HTTP_METHOD.get);
                     //on attent la reponse...
@@ -78,7 +78,7 @@ app.controller("managerRhAccueilController",
                         }
                     });
             };
-            listerObjectifsRef();
+            listerObjectif();
 
 
             $scope.categories=[];
@@ -148,9 +148,9 @@ app.controller("managerRhAccueilController",
                 affecterProjet:undefined,
                 ajouterObjectif:undefined,
                 modifierObjectif:undefined,
-                listerCollabsSansObj:listerCollabsSansObj,
-                listerCollabsSansProjet:listerCollabsSansProjet,
-                listerObjectifsRef:listerObjectifsRef
+                listerCollabSansObj:listerCollabSansObj,
+                listerCollabSansProjet:listerCollabSansProjet,
+                listerObjectif:listerObjectif
             };
 
 
