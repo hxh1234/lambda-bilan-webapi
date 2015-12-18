@@ -3,6 +3,7 @@ package com.lambda.bilan.web.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,10 +18,10 @@ import com.lambda.bilan.web.models.Reponse;
 
 @RestController
 public class InterventionController {
-	
+
 	@Autowired
 	IInterventionMetier interventionMetier;
-	
+
 	/*
 	 * assignation des projets au collaborateur
 	 */
@@ -33,5 +34,73 @@ public class InterventionController {
 		}
 		return new Reponse(0, PropretiesHelper.getText("intervention.add.success"));
 	}
+
+	/*
+	 * Liste des interventions fini
+	 */
+	@RequestMapping(value="/intervention_fini/{id}" , method = RequestMethod.GET)
+	public Reponse getTop6FinishedInterventionOfEvaluateur(@PathVariable("id") Long id){
+		try {
+			return new Reponse(0,interventionMetier.getTop6FinishedInterventionOfEvaluateur(id));
+		} catch (LambdaException e) {
+			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
+		}
+	}
+
+	/*
+	 * Obtenir une intervention
+	 */
+	@RequestMapping(value="/intervention/{idProjet}/{idCollaborateur}",method=RequestMethod.GET)
+	public Reponse getIntervention(@PathVariable("idProjet") Long idProjet,@PathVariable("idCollaborateur") Long idCollaborateur){
+		try {
+			return new Reponse(0,interventionMetier.getIntervention(idProjet, idCollaborateur));
+		} catch (Exception e) {
+			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
+		}
+	}
+
+	/*
+	 * definir intervantion (par un Evaluateur)
+	 */
+	@RequestMapping(value = "/interventions/{id}", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
+	public Reponse defineIntervention(@PathVariable("id") Long id, @RequestBody Intervention intervention)  {
+		try {
+			if(intervention.getIdIntervention().equals(id))
+				interventionMetier.defineIntervention(intervention);
+			else
+				return new Reponse(0, PropretiesHelper.getText("general.update.fail"));
+		} catch (LambdaException e) {
+			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
+		}
+		return new Reponse(0, PropretiesHelper.getText("intervention.update.success"));
+	}
+	
+	/*
+	 * liste des themes
+	 */
+	@RequestMapping(value="/themes" , method = RequestMethod.GET)
+	public Reponse getAllTheme(){
+		try {
+			return new Reponse(0,interventionMetier.getAllTheme());
+		} catch (LambdaException e) {
+			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
+		}
+	}
+	
+	/*
+	 * liste des qualifications
+	 */
+	@RequestMapping(value="/qualifications" , method = RequestMethod.GET)
+	public Reponse getAllQualification(){
+		try {
+			return new Reponse(0,interventionMetier.getAllQualification());
+		} catch (LambdaException e) {
+			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
+		}
+	}
+	
+	/*
+	 * Creer feedback
+	 */
 
 }

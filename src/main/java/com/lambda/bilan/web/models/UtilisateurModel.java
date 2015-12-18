@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lambda.bilan.entities.Collaborateur;
+import com.lambda.bilan.entities.Evaluateur;
 import com.lambda.bilan.entities.Utilisateur;
 
 public class UtilisateurModel {
@@ -13,7 +14,25 @@ public class UtilisateurModel {
 	private final static String COLLABORATEUR_CLASS="com.lambda.bilan.entities.Collaborateur";
 	private final static String EVALUATEUR_CLASS="com.lambda.bilan.entities.Evaluateur";
 	private final static String ADMINISTRATEUR_CLASS="com.lambda.bilan.entities.Administrateur";
+
+
+	public static List<Map<String, Object>> listeUtilisateurRvised(List<Utilisateur> utilisateurs){
+		List<Map<String, Object>> listeUtilisateurRvised = new ArrayList<Map<String, Object>>();
+		for (Utilisateur utilisateur : utilisateurs) {
+			listeUtilisateurRvised.add(getMapForUtilisateur(utilisateur));
+		}
+		return listeUtilisateurRvised;
+	}
 	
+	public static List<Map<String, Object>> listeEvaluateurRvised(List<Evaluateur> evaluateurs){
+		List<Map<String, Object>> listeEvaluateurRvised = new ArrayList<Map<String, Object>>();
+		for (Evaluateur evaluateur : evaluateurs) {
+			listeEvaluateurRvised.add(getMapForUtilisateur(evaluateur));
+		}
+		return listeEvaluateurRvised;
+	}
+
+
 	private static Map<String, Object> getMapForUtilisateur(Utilisateur utilisateur){
 		if(utilisateur==null)
 			return null;
@@ -49,17 +68,16 @@ public class UtilisateurModel {
 		}
 		return hash;
 	}
-	
-	public static List<Map<String, Object>> listeUtilisateurRvised(List<Utilisateur> utilisateurs){
-		List<Map<String, Object>> listeUtilisateurRvised = new ArrayList<Map<String, Object>>();
-		for (Utilisateur utilisateur : utilisateurs) {
-			listeUtilisateurRvised.add(getMapForUtilisateur(utilisateur));
-		}
-		return listeUtilisateurRvised;
-	}
-			
 
+
+	private static Map<String, Object> getMapForEvaluateur(Evaluateur evaluateur){
+		if(evaluateur==null)
+			return null;
+		Map<String, Object> hash = new HashMap<String, Object>();		
+		hash.put("idEvaluateur",evaluateur.getIdUtilisateur());
+		hash.put("nomEvaluateur",evaluateur.getNomUtilisateur());
+		hash.put("prenomEvaluateur",evaluateur.getPrenomUtilisateur());
 		
-	
-
+		return hash;
+	}
 }

@@ -16,6 +16,7 @@ import com.lambda.bilan.entities.Evaluateur;
 import com.lambda.bilan.entities.ManagerRH;
 import com.lambda.bilan.entities.Utilisateur;
 import com.lambda.bilan.helpers.LambdaException;
+import com.lambda.bilan.metier.IMailMetier;
 import com.lambda.bilan.metier.IUtilisateurMetier;
 import com.lambda.bilan.web.helpers.ExceptionHelpers;
 import com.lambda.bilan.web.helpers.PropretiesHelper;
@@ -29,8 +30,8 @@ public class UtilisateurController {
 
 	@Autowired
 	IUtilisateurMetier utilisateurMetier;
-	//@Autowired
-	//IMailMetier mailMetier;
+	@Autowired
+	IMailMetier mailMetier;
 
 	/*
 	 * Ajouter un utilisateur 
@@ -43,7 +44,7 @@ public class UtilisateurController {
 			String passwordUtilisateur = RandomGenerator.randomString();
 			collaborateur.setPasswordUtilisateur(passwordUtilisateur);
 			utilisateurMetier.addUtilisateur(collaborateur);
-			//mailMetier.sendMailNewCollaborateur(collaborateur);
+			mailMetier.sendMailNewCollaborateur(collaborateur);
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
@@ -253,6 +254,18 @@ public class UtilisateurController {
 	}
 
 	/*
+	 * liste des Evaluateur
+	 */
+	@RequestMapping(value = "/evaluateurs" , method = RequestMethod.GET)
+	public Reponse getAllEvaluateur()  {
+		try {
+			return new Reponse(0,UtilisateurModel.listeEvaluateurRvised(utilisateurMetier.getAllEvaluateur()));
+		} catch (LambdaException e) {
+			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
+		}
+	}
+
+	/*
 	 * liste des collaborateurs sans projets
 	 */
 	@RequestMapping(value="/collaborateurs_without_projet", method=RequestMethod.GET)
@@ -275,7 +288,7 @@ public class UtilisateurController {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
 	}
-	
+
 	/*
 	 * liste collaborateur d'un mangerRH
 	 */
@@ -287,24 +300,17 @@ public class UtilisateurController {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
 	}
-	
+
 	/*
 	 * liste collaborateur pour un projet
 	 */
 	@RequestMapping(value="/projets/{id}/collaborateurs" , method = RequestMethod.GET)
 	public Reponse getAllCollaborateurOfProjet(@PathVariable("id") Long id){
 		try {
-			return new Reponse(0,UtilisateurModel.listeCollaborateurForProjet(id, utilisateurMetier.getAllCollaborateurOfProjet(id)));
+			return new Reponse(0,utilisateurMetier.getAllCollaborateurOfProjet(id));
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
 	}
-	
-	/*
-	 * date serveur
-	 */
-	@RequestMapping(value="/date_serveur" , method = RequestMethod.GET)
-	public Date getDateServeur(){
-		return new Date(Calendar.getInstance().getTime().getTime());
-	}
+
 }
