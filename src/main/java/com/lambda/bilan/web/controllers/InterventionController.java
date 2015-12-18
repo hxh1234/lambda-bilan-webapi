@@ -50,7 +50,7 @@ public class InterventionController {
 	/*
 	 * Obtenir une intervention
 	 */
-	@RequestMapping(value="/intervention/{idProjet}/{idCollaborateur}",method=RequestMethod.GET)
+	@RequestMapping(value="/interventions/{idProjet}/{idCollaborateur}",method=RequestMethod.GET)
 	public Reponse getIntervention(@PathVariable("idProjet") Long idProjet,@PathVariable("idCollaborateur") Long idCollaborateur){
 		try {
 			return new Reponse(0,interventionMetier.getIntervention(idProjet, idCollaborateur));
