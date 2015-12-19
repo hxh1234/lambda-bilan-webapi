@@ -97,7 +97,7 @@ public class ProjetController {
 	public Reponse getAllProjetOfCollaborateur(@PathVariable("id") Long id){
 		try {
 			Collaborateur collaborateur = new Collaborateur(id);
-			return new Reponse(0,projetMetier.getAllProjetOfCollaborateur((collaborateur)));
+			return new Reponse(0,ProjetModel.listeProjetRvised(projetMetier.getAllProjetOfCollaborateur((collaborateur))));
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}

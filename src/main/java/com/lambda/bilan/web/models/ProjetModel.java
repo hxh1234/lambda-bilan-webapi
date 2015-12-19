@@ -17,6 +17,7 @@ public class ProjetModel {
 		hash.put("nomProjet", projet.getNomProjet());
 		hash.put("idEvaluateur", projet.getEvaluateur().getIdUtilisateur());
 		hash.put("nomEvaluateur", projet.getEvaluateur().getNomUtilisateur());
+		hash.put("urlPhotoEvaluateur", projet.getEvaluateur().getUrlPhotoUtilisateur());
 		return hash;
 	}
 	

@@ -123,6 +123,19 @@ public class ObjectifController {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
 	}
+	
+	/*
+	 * fiche d'objectifs pour Collaborateur
+	 */
+	@RequestMapping(value = "/collaborateurs/{id}/ficheObjectifs_collaborateur" , method = RequestMethod.GET)
+	public Reponse getFicheObjectifsOfCollaborateur(@PathVariable("id") Long id ,Date year) {
+		try {
+			Collaborateur collaborateur = new Collaborateur(id);
+			return new Reponse(0,FicheObjectifsModel.getMapForFicheObjectifs(objectifMetier.getFicheObjectifsOfCollaborateur(collaborateur, year)));
+		} catch (LambdaException e) {
+			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
+		}
+	}
 
 	/*
 	 * liste des objectifs refusé
@@ -155,7 +168,6 @@ public class ObjectifController {
 	public Reponse getAllObjectifsOfCollaborateurThisYear(@PathVariable("id") Long id){
 		try {
 			Collaborateur collaborateur = (Collaborateur) utilisateurMetier.getUtilisateur(id);
-			System.out.println(collaborateur.getIdUtilisateur() + "  "+ collaborateur.getNomUtilisateur());
 			return new Reponse(0,objectifMetier.getAllObjectifsOfCollaborateurThisYear(collaborateur));
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));

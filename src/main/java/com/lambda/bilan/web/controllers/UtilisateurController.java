@@ -13,11 +13,10 @@ import com.lambda.bilan.entities.Evaluateur;
 import com.lambda.bilan.entities.ManagerRH;
 import com.lambda.bilan.entities.Utilisateur;
 import com.lambda.bilan.helpers.LambdaException;
-import com.lambda.bilan.metier.IMailMetier;
 import com.lambda.bilan.metier.IUtilisateurMetier;
 import com.lambda.bilan.web.helpers.ExceptionHelpers;
 import com.lambda.bilan.web.helpers.PropretiesHelper;
-import com.lambda.bilan.web.helpers.RandomGenerator;
+import com.lambda.bilan.web.models.ForgetPasswordModel;
 import com.lambda.bilan.web.models.Reponse;
 import com.lambda.bilan.web.models.UpdatePasswordModel;
 import com.lambda.bilan.web.models.UtilisateurModel;
@@ -27,8 +26,7 @@ public class UtilisateurController {
 
 	@Autowired
 	IUtilisateurMetier utilisateurMetier;
-	@Autowired
-	IMailMetier mailMetier;
+
 
 	/*
 	 * Ajouter un utilisateur 
@@ -37,11 +35,8 @@ public class UtilisateurController {
 	@RequestMapping(value = "/collaborateurs", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
 	public Reponse addColaborateur(@RequestBody Collaborateur collaborateur) {
 		try {
-			//Generer un password
-			String passwordUtilisateur = RandomGenerator.randomString();
-			collaborateur.setPasswordUtilisateur(passwordUtilisateur);
 			utilisateurMetier.addUtilisateur(collaborateur);
-			mailMetier.sendMailNewUtilisateur(collaborateur);
+			//mailMetier.sendMailNewUtilisateur(collaborateur);
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
@@ -52,12 +47,7 @@ public class UtilisateurController {
 	@RequestMapping(value = "/evaluateurs", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
 	public Reponse addEvaluateur(@RequestBody Evaluateur evaluateur) {
 		try {
-
-			//Generer un password
-			String passwordUtilisateur = RandomGenerator.randomString();
-			evaluateur.setPasswordUtilisateur(passwordUtilisateur);
 			utilisateurMetier.addUtilisateur(evaluateur);
-			mailMetier.sendMailNewUtilisateur(evaluateur);
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
@@ -68,12 +58,7 @@ public class UtilisateurController {
 	@RequestMapping(value = "/managerRHs", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
 	public Reponse addManagerRH(@RequestBody ManagerRH managerRH) {
 		try {
-
-			//Generer un password
-			String passwordUtilisateur = RandomGenerator.randomString();
-			managerRH.setPasswordUtilisateur(passwordUtilisateur);
 			utilisateurMetier.addUtilisateur(managerRH);
-			mailMetier.sendMailNewUtilisateur(managerRH);
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
@@ -84,12 +69,7 @@ public class UtilisateurController {
 	@RequestMapping(value = "/administrateurs", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
 	public Reponse addAdministrateur(@RequestBody Administrateur administrateur) {
 		try {
-
-			//Generer un password
-			String passwordUtilisateur = RandomGenerator.randomString();
-			administrateur.setPasswordUtilisateur(passwordUtilisateur);
 			utilisateurMetier.addUtilisateur(administrateur);
-			mailMetier.sendMailNewUtilisateur(administrateur);
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
@@ -213,6 +193,19 @@ public class UtilisateurController {
 		return new Reponse(0, PropretiesHelper.getText("utilisateur.update.success"));
 	}
 
+	/*
+	 * mot de passe oublier
+	 */
+	
+	@RequestMapping(value = "/utilisateur", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
+	public Reponse forgetPassword(@RequestBody Utilisateur utilisateur) {
+		try {
+			utilisateurMetier.forgetPassword(utilisateur);
+		} catch (LambdaException e) {
+			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
+		}
+		return new Reponse(0, PropretiesHelper.getText("utilisateur.update.success"));
+	}
 
 	/*
 	 * Liste des utilisateurs
