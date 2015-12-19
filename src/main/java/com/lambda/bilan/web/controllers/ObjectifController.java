@@ -20,6 +20,7 @@ import com.lambda.bilan.web.helpers.ExceptionHelpers;
 import com.lambda.bilan.web.helpers.PropretiesHelper;
 import com.lambda.bilan.web.models.EvaluationObjectifBAPModel;
 import com.lambda.bilan.web.models.FicheObjectifsModel;
+import com.lambda.bilan.web.models.ObjectifModel;
 import com.lambda.bilan.web.models.Reponse;
 
 @RestController
@@ -169,6 +170,19 @@ public class ObjectifController {
 		try {
 			Collaborateur collaborateur = (Collaborateur) utilisateurMetier.getUtilisateur(id);
 			return new Reponse(0,objectifMetier.getAllObjectifsOfCollaborateurThisYear(collaborateur));
+		} catch (LambdaException e) {
+			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
+		}
+	}
+	
+	/*
+	 * liste des objectifs d'un collaborateur cette année
+	 */
+	@RequestMapping(value = "/collaborateurs/{id}/objectifs_revised", method = RequestMethod.GET)
+	public Reponse getAllObjectifsOfCollaborateurRevised(@PathVariable("id") Long id){
+		try {
+			Collaborateur collaborateur = (Collaborateur) utilisateurMetier.getUtilisateur(id);
+			return new Reponse(0,ObjectifModel.listeObjectifRvised(objectifMetier.getAllObjectifsOfCollaborateurThisYear(collaborateur)));
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
