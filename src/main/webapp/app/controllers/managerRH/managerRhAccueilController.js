@@ -7,6 +7,9 @@ app.controller("managerRhAccueilController",
         function ($scope, $filter ,security, HTTP_METHOD, properties , utils,dao ) {
 
             var idManagerRH=1;
+            $scope.user={nomUtilisateur :"Jaouad",prenomUtilisateur:"Elgharrasse"};
+            $scope.errors={show:false,messages:[]};
+            $scope.succes={show:false,message:''};
 
             $scope.collabsSansProjet=[];
             var listerCollabSansProjet = function(){
@@ -21,8 +24,8 @@ app.controller("managerRhAccueilController",
                         $scope.collabsSansProjet = result.data;
                     } else {
                         // il y a eu des erreurs
+                        $scope.succes.show=false;
                         $scope.errors = {
-
                             title: properties.listerCollabsSansProjetError,
                             messages: utils.getErrors(result),
                             show: true
@@ -45,6 +48,7 @@ app.controller("managerRhAccueilController",
                         $scope.collabsSansObj = result.data;
                     } else {
                         // il y a eu des erreurs
+                        $scope.succes.show=false;
                         $scope.errors = {
 
                             title: properties.listerCollabsSansObjError,
@@ -69,6 +73,7 @@ app.controller("managerRhAccueilController",
                             $scope.objectifsRef = result.data;
                         } else {
                             // il y a eu des erreurs
+                            $scope.succes.show=false;
                             $scope.errors = {
 
                                 title: properties.listerObjRefusError,
@@ -92,8 +97,9 @@ app.controller("managerRhAccueilController",
                     $scope.categories=result.data;
                 } else {
                     // il y a eu des erreurs
+                    $scope.succes.show=false;
                     $scope.errors = {
-                        title: properties.recuperationsCategoriesErrors,
+                        title: properties.recuperationsCategoriesError,
                         messages: utils.getErrors(result),
                         show: true
                     };
@@ -108,11 +114,13 @@ app.controller("managerRhAccueilController",
                     // fin d'attente
                     // erreur ?
                     if (result.err == 0) {
+                        $scope.errors.show=false;
+                        $scope.succes={show:true,message:result.data};
                         listerObjectifsRef();
                     } else {
                         // il y a eu des erreurs
+                        $scope.succes.show=false;
                         $scope.errors = {
-
                             title: properties.supprimerObjectifError,
                             messages: utils.getErrors(result),
                             show: true
@@ -130,9 +138,12 @@ app.controller("managerRhAccueilController",
                     // erreur ?
                     if (result.err == 0) {
                         //Pas d'erreurs
+                        $scope.errors.show=false;
+                        $scope.succes={show:true,message:result.data};
                         listerObjectifsRef();
                     } else {
                         // il y a eu des erreurs
+                        $scope.succes.show=false;
                         $scope.errors = {
 
                             title: properties.validerObjectifError,

@@ -11,6 +11,7 @@ angular.module("lambda.bilan")
       modifierUtilisateurError:"Les erreurs suivantes se sont produites lors de la modification de l'utilisateur",
       récupérerUtilisateurError:"Les erreurs suivantes se sont produites lors de la récupération de l'utilisateur au serveur",
       abandonnerUtilisateurError:"Les erreurs suivantes se sont produites lors de l'abandon du collaborateur ",
+
       listerCollabsSansProjetError:"Les erreurs suivantes se sont produites lors du chargement de la liste " +
                                             "des collaborateurs sans projet ",
       listerCollabsSansObjError:"Les erreurs suivantes se sont produites lors du chargement de la liste " +
@@ -35,7 +36,17 @@ angular.module("lambda.bilan")
       listerFicheError:"Les erreurs suivantes se sont produites lors du chargement  de la fiche",
       listerFeedbackError:"Les erreurs suivantes se sont produites lors du chargement  des feedbacks",
       listerCollabError:"Les erreurs suivantes se sont produites lors du chargement  des collaborateurs",
-      recuperationObjectifError:"Les erreurs suivantes se sont produites lors du chargement  des objectifs aua serveur",
+      recuperationObjectifError:"Les erreurs suivantes se sont produites lors du chargement  des objectifs au serveur",
+      recuperationEvaluateurError:"Les erreurs suivantes se sont produites lors du chargement  des evaluateurs au serveur",
+      listerProjetError:"Les erreurs suivantes se sont produites lors du chargement des projets au serveur",
+      supprimerProjetError:"Les erreurs suivantes se sont produites lors de la suppression du projet",
+      modifierProjetError:"Les erreurs suivantes se sont produites lors de la modification du projet",
+      recupererThemeError:"Les erreurs suivantes se sont produites lors du chargement des themes au serveur",
+      recupererQualifError:"Les erreurs suivantes se sont produites lors du chargement des qualifications au serveur",
+      recupererInterventionError:"Les erreurs suivantes se sont produites lors du chargement de l'intervention au serveur",
+      enregistrerFeedbackError:"Les erreurs suivantes se sont produites lors de l'enregistrement de feedback",
+      validerFeedbackError:"Les erreurs suivantes se sont produites lors de l'enregistrement de feedback",
+      dresserPlanAmeliorationError:"Les erreurs suivantes se sont produites lors du dressage du plan d'amélioration",
       //Erreurs http
       error_unknown: "Erreur non identifiée",
       not_authorized: "Erreur d'authentification",
@@ -66,12 +77,11 @@ angular.module("lambda.bilan")
       urlRefuserObjectif:"/objectifs_refuser",
       urlAffecterProjet:"/interventions",
       urlEvaluationObjectif:"/objectifs_evaluation",
-
-
-
-
-
-
+      urlIntervention:"/interventions",
+      urlTheme:"/themes",
+      urlQualification:"/qualifications",
+      urlPlanAmelioration:"/planAmeliorations",
+      urlFeedback:"/feedbacks",
       // délai d'attente maximal pour les appels http en millisecondes
       timeout: 2000
     };

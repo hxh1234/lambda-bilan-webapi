@@ -34,14 +34,16 @@ app.controller("modifierObjectifController",
                     // erreur ?
                     if (result.err == 0) {
                         //Pas d'erreur
+                        $scope.errors.show = false;
+                        $scope.succes.show=true;
+                        $scope.succes.message=result.data;
                         $scope.action.listerObjectif();
                     } else {
                         // il y a eu des erreurs
-                        $scope.errors = {
-                            title: properties.modifierObjectifError,
-                            messages: utils.getErrors(result),
-                            show: true
-                        };
+                        $scope.succes.show=false;
+                        $scope.errors.show = true;
+                        $scope.errors.title = properties.modifierObjectifError;
+                        $scope.errors.messages = utils.getErrors(result);
                     }
                 });
 

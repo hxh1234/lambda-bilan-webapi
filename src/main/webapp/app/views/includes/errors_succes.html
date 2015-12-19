@@ -1,0 +1,19 @@
+<!-- page heading start-->
+    <div ng-show="errors.show" class="alert alert-block alert-danger fade in">
+    <button type="button" class="close close-sm" data-dismiss="alert">
+        <i class="fa fa-times"></i>
+    </button>
+    <strong>{{errors.title}}</strong>
+    <ul>
+        <li ng-repeat="message in errors.messages">{{message}}</li>
+    </ul>
+</div>
+<div ng-show="succes.show" class="alert alert-block alert-warning fade in">
+    <button type="button" class="close close-sm" data-dismiss="alert">
+        <i class="fa fa-times"></i>
+    </button>
+    <strong>l'Opération a terminé avec succes :</strong>
+    <div>
+        {{succes.message}}
+    </div>
+</div>

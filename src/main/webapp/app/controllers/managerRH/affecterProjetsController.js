@@ -41,7 +41,6 @@ app.controller("affecterProjetsController",
                         collaborateur : {idUtilisateur:$scope.idCollaborateur},
                         projet : {idProjet:$scope.projetsOutput[i].idProjet}
                     }
-
                     projets.push(item);
                 }
                 console.log(angular.toJson(projets));
@@ -53,24 +52,20 @@ app.controller("affecterProjetsController",
                      // erreur ?
                      if (result.err == 0) {
                          //Pas d'erreurs
+                         $scope.errors.show = false;
+                         $scope.succes.show=true;
+                         $scope.succes.message=result.data;
                          if(isLister==true)
                          $scope.action.listerCollabSansProjet();
                      } else {
                      // il y a eu des erreurs
-                         $scope.errors = {
-                             title: properties.affecterProjetError,
-                             messages: utils.getErrors(result),
-                             show: true
-                         };
+                         $scope.succes.show=false;
+                         $scope.errors.show = true;
+                         $scope.errors.title = properties.affecterProjetError;
+                         $scope.errors.messages = utils.getErrors(result);
                      }
                  });
-
-
             };
-
-
-
-
         }])
 ;
 

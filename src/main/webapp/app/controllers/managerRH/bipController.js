@@ -1,7 +1,5 @@
 var app = angular.module("lambda.bilan", ["ngCookies"]);
 
-
-
 app.controller("bipController",
     ['$scope', '$filter','security', 'HTTP_METHOD','properties', 'utils','dao',
         function ($scope, $filter ,security, HTTP_METHOD, properties , utils,dao ) {
@@ -9,9 +7,12 @@ app.controller("bipController",
             //get idCollaborateur
          /*   var idCollaborateur=$cookies.getObject("idCollab");
             $cookies.putObject("idCollab",undefined);*/
-
-            console.log("iniiit bip");
-                var idCollaborateur=3;
+            $scope.user={nomUtilisateur :"Jaouad",prenomUtilisateur:"Elgharrasse"};
+            $scope.errors={show:false,messages:[]};
+            $scope.succes={show:false,message:''};
+            var collaborateur = $cookies.getObject("collaborateur");
+            $cookies.putObject("collaborateur",null);
+            var idCollaborateur = collaborateur.idUtilisateur;
                 $scope.objectifs=[];
                 var listerObjectif= function () {
                     var task = dao.getData(properties.urlCollaborateur+"/"+idCollaborateur+"/objectifs", null, HTTP_METHOD.get);
@@ -20,18 +21,16 @@ app.controller("bipController",
                         // fin d'attente
                         // erreur ?
                         if (result.err == 0) {
-                            console.log("$$$");
                             //Pas d'erreur
                             $scope.objectifs=result.data;
                             console.log(angular.toJson(result.data));
 
                         } else {
                             // il y a eu des erreurs
-                            $scope.errors = {
-                                title: properties.listerObjectifError,
-                                messages: utils.getErrors(result),
-                                show: true
-                            };
+                            $scope.succes.show=false;
+                            $scope.errors.show = true;
+                            $scope.errors.title = properties.listerObjectifError;
+                            $scope.errors.messages = utils.getErrors(result);
                         }
                     });
                 };
@@ -49,11 +48,10 @@ app.controller("bipController",
                         $scope.categories=result.data;
                     } else {
                         // il y a eu des erreurs
-                        $scope.errors = {
-                            title: properties.recuperationsCategoriesErrors,
-                            messages: utils.getErrors(result),
-                            show: true
-                        };
+                        $scope.succes.show=false;
+                        $scope.errors.show = true;
+                        $scope.errors.title = properties.recuperationsCategoriesError;
+                        $scope.errors.messages = utils.getErrors(result);
                     }
                 });
 
@@ -68,11 +66,10 @@ app.controller("bipController",
                         $scope.responsableMesures=result.data;
                     } else {
                         // il y a eu des erreurs
-                        $scope.errors = {
-                            title: properties.recuperationsRespError,
-                            messages: utils.getErrors(result),
-                            show: true
-                        };
+                        $scope.succes.show=false;
+                        $scope.errors.show = true;
+                        $scope.errors.title = properties.recuperationsRespError;
+                        $scope.errors.messages = utils.getErrors(result);
                     }
                 });
 
@@ -90,15 +87,17 @@ app.controller("bipController",
                         // erreur ?
                         if (result.err == 0) {
                             //Pas d'erreur
+                            $scope.errors.show = false;
+                            $scope.succes.show=true;
+                            $scope.succes.message=result.data;
                            listerObjectif();
 
                         } else {
                             // il y a eu des erreurs
-                            $scope.errors = {
-                                title: properties.ajouterObjectifError,
-                                messages: utils.getErrors(result),
-                                show: true
-                            };
+                            $scope.succes.show=false;
+                            $scope.errors.show = true;
+                            $scope.errors.title = properties.ajouterObjectifError;
+                            $scope.errors.messages = utils.getErrors(result);
                         }
                     });
                 };
@@ -126,15 +125,17 @@ app.controller("bipController",
                         // erreur ?
                         if (result.err == 0) {
                             //Pas d'erreur
+                            $scope.errors.show = false;
+                            $scope.succes.show=true;
+                            $scope.succes.message=result.data;
                             listerObjectif();
 
                         } else {
                             // il y a eu des erreurs
-                            $scope.errors = {
-                                title: properties.ajouterMesureError,
-                                messages: utils.getErrors(result),
-                                show: true
-                            };
+                            $scope.succes.show=false;
+                            $scope.errors.show = true;
+                            $scope.errors.title = properties.ajouterMesureError;
+                            $scope.errors.messages = utils.getErrors(result);
                         }
                     });
 
@@ -148,15 +149,17 @@ app.controller("bipController",
                         // fin d'attente
                         // erreur ?
                         if (result.err == 0) {
+                            $scope.errors.show = false;
+                            $scope.succes.show=true;
+                            $scope.succes.message=result.data;
                             listerObjectif();
                         } else {
                             // il y a eu des erreurs
-                            $scope.errors = {
-
-                                title: properties.supprimerObjectifError,
-                                messages: utils.getErrors(result),
-                                show: true
-                            };
+                            // il y a eu des erreurs
+                            $scope.succes.show=false;
+                            $scope.errors.show = true;
+                            $scope.errors.title = properties.supprimerObjectifError;
+                            $scope.errors.messages = utils.getErrors(result);
                         }
                     });
 
@@ -170,14 +173,16 @@ app.controller("bipController",
                         // fin d'attente
                         // erreur ?
                         if (result.err == 0) {
+                            $scope.errors.show = false;
+                            $scope.succes.show=true;
+                            $scope.succes.message=result.data;
                             listerObjectif();
                         } else {
                             // il y a eu des erreurs
-                            $scope.errors = {
-                                title: properties.supprimerMesureError,
-                                messages: utils.getErrors(result),
-                                show: true
-                            };
+                            $scope.succes.show=false;
+                            $scope.errors.show = true;
+                            $scope.errors.title = properties.supprimerMesureError;
+                            $scope.errors.messages = utils.getErrors(result);
                         }
                     });
 

@@ -1,28 +1,24 @@
-/**
- * Created by ST on 03/05/2014.
- */
 var app = angular.module("lambda.bilan", ["ngCookies","ngTable"]);
 
-app.controller("listBapController",
-    ['$scope','$cookies','$http','ngTableParams', '$filter','security', 'HTTP_METHOD','properties', 'utils','dao',
-        function ($scope,$cookies,$http,NgTableParams, $filter ,security, HTTP_METHOD, properties , utils,dao ) {
+app.controller("listeProjetController",
+    ['$scope','ngTableParams', '$filter','security', 'HTTP_METHOD','properties', 'utils','dao',
+        function ($scope,NgTableParams, $filter ,security, HTTP_METHOD, properties , utils,dao ) {
 
-            $scope.succes={show:false,message:''};
+            var idEvaluateur=10;
+
+            $scope.user={nomUtilisateur :"Jaouad",prenomUtilisateur:"Elgharrasse"};
             $scope.errors={show:false,messages:[]};
-
-            $scope.collaborateur = $cookies.getObject("collaborateur");
-            $cookies.putObject("collaborateur",null);
-            var idCollaborateur = $scope.collaborateur.idUtilisateur;
+            $scope.succes={show:false,message:''};
 
             $scope.tabledata={table:[]};
             $scope.tableParams = new NgTableParams({
                 page: 1,            // show first page
                 count: 10,          // count per page
                 sorting: {
-                    dateBAP: 'desc'     // initial sorting
+                    idProjet: 'asc'     // initial sorting
                 },
                 filter: {
-                    dateBAP: ''       // initial filter
+                    idProjet: ''       // initial filter
                 }
             },{
                 total: $scope.tabledata.table.length, // length of data
@@ -42,20 +38,23 @@ app.controller("listBapController",
             });
 
 
-            //affichage des lists des baps du collabrateurs
-            var task = dao.getData("/collaborateurs/"+idCollaborateur+"/baps", null, HTTP_METHOD.get);
+
+            var task = dao.getData("/evaluateurs/"+idEvaluateur+"/projets", null, HTTP_METHOD.get);
             //on attent la reponse...
             task.promise.then(function (result) {
                 // fin d'attente
                 // erreur ?
                 if (result.err == 0) {
                     //Pas d'erreur
+
                     $scope.tabledata.table = result.data;
                     $scope.tableParams.reload();
                 } else {
+                    // il y a eu des erreurs pour obtenir l'agenda
+                    $scope.succes.show=false;
                     $scope.errors = {
 
-                        title: properties.listerBapError,
+                        title: properties.listerProjetError,
                         messages: utils.getErrors(result),
                         show: true
                     };
@@ -64,67 +63,57 @@ app.controller("listBapController",
 
             });
 
-            $scope.fiche=[];
-            $scope.consulterFiche=function(year){
-
-                var task = dao.getData("/collaborateurs/"+idCollaborateur+"/ficheObjectifs?year="+year,null, HTTP_METHOD.get);
+            //liste des collabs
+            $scope.collaborateurs=[];
+            $scope.projet={};
+            $scope.listerCollab=function(projet){
+                $scope.projet=projet;
+                var task = dao.getData("/projets/"+projet.idProjet+"/collaborateurs", null, HTTP_METHOD.get);
                 //on attent la reponse...
                 task.promise.then(function (result) {
                     // fin d'attente
                     // erreur ?
                     if (result.err == 0) {
                         //Pas d'erreur
-                       $scope.fiche=result.data;
+                        $scope.collaborateurs = result.data;
                     } else {
+                        // il y a eu des erreurs pour obtenir l'agenda
+                        $scope.succes.show=false;
                         $scope.errors = {
-                            title: properties.listerBapError,
+                            title: properties.listerCollabError,
                             messages: utils.getErrors(result),
                             show: true
                         };
                     }
-
-
                 });
             };
 
-            $scope.plan=[];
-            $scope.consulterPlan=function(year){
+            $scope.collaborateur={};
+            $scope.setCollaborateur=function(collaborateur){
+                $scope.collaborateur=collaborateur;
+            };
 
-                var task = dao.getData("/collaborateurs/"+idCollaborateur+"/planAmeliorations?year="+year,null, HTTP_METHOD.get);
+
+            $scope.intervention={};
+            $scope.ajouterIntervention=function(){
+                $scope.intervention.projet={idProjet:$scope.projet.idProjet};
+                $scope.intervention.collaborateur={idUtilisateur:$scope.collaborateur.idUtilisateur};
+                $scope.intervention.notes=[];
+                console.log(angular.toJson($scope.intervention));
+                var task = dao.getData(properties.urlIntervention+"/"+$scope.projet.idProjet+"/"+$scope.collaborateur.idUtilisateur,
+                    null, HTTP_METHOD.put,$scope.intervention);
                 //on attent la reponse...
                 task.promise.then(function (result) {
                     // fin d'attente
                     // erreur ?
                     if (result.err == 0) {
                         //Pas d'erreur
-                        $scope.plan=result.data;
+                        $scope.succes={show:true,message:result.data};
                     } else {
+                        // il y a eu des erreurs
+                        $scope.succes.show=false;
                         $scope.errors = {
-                            title: properties.listerBapError,
-                            messages: utils.getErrors(result),
-                            show: true
-                        };
-                    }
-
-
-                });
-            };
-
-            $scope.feedbacks=[];
-            $scope.year;
-            $scope.setFeedbacks=function(year){
-                $scope.year=year;
-                var task = dao.getData("/collaborateurs/"+2+"/feedBacks/?year="+"2016-01-01",null, HTTP_METHOD.get);
-                //on attent la reponse...
-                task.promise.then(function (result) {
-                    // fin d'attente
-                    // erreur ?
-                    if (result.err == 0) {
-                        //Pas d'erreur
-                        $scope.feedbacks=result.data;
-                    } else {
-                        $scope.errors = {
-                            title: properties.listerFeedbackError,
+                            title: properties.listerCollabError,
                             messages: utils.getErrors(result),
                             show: true
                         };
@@ -133,13 +122,7 @@ app.controller("listBapController",
 
             };
 
-            $scope.feedback={};
-            $scope.setFeedback=function(feedback){
-                $scope.feedback=feedback;
-
-            };
-
-
+            $scope.action={creerFeedback:undefined};
 
         }])
 ;

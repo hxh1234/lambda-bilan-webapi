@@ -18,6 +18,6 @@ angular.module("lambda.bilan")
                     $scope.ngModel = null;
                 };
             },
-            templateUrl: 'datepicker.html'
+            templateUrl: '../../directives/datepicker.html'
         }
 })

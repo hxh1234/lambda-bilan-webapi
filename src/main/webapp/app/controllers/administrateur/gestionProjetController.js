@@ -12,9 +12,9 @@ app.controller("gestionProjetController",
             //Check for security : si l'utilisateur est authentifié + autorisé on retourne l'utilisateur connecté
             // sinon on redirige vers la page login ou vers la page forbidden
             //       var user=security.check("administrateur");
-            //      $scope.user=user;
+                $scope.user={nomUtilisateur :"Jaouad",prenomUtilisateur:"Elgharrasse"};
 
-            $scope.waiting={show:false};
+            $scope.succes={show:false,message:''};
             $scope.errors={show:false};
             $scope.tabledata={table:[]};
             $scope.tableParams = new NgTableParams({
@@ -43,66 +43,72 @@ app.controller("gestionProjetController",
                 }
             });
 
-
-
-
             //Action Lister les projets
             var lister=function() {
                 //on récupere la tache de l'envoi de la requete
                 var task = dao.getData(properties.urlProjet, null, HTTP_METHOD.get);
                 //on attent la reponse...
-                $scope.waiting.show = true;
                 task.promise.then(function (result) {
                     // fin d'attente
-                    $scope.waiting.show = false;
                     // erreur ?
                     if (result.err == 0) {
                         //Pas d'erreur
-
                         $scope.tabledata.table = result.data;
                         $scope.tableParams.reload();
                     } else {
-                        // il y a eu des erreurs pour obtenir l'agenda
-                        //console.log("init fin att  "+angular.toJson(result));
+                        $scope.succes.show=false;
                         $scope.errors = {
-
-                            title: properties.listerUtilisateurError,
+                            title: properties.listerProjetError,
                             messages: utils.getErrors(result),
                             show: true
                         };
                     }
-
-
                 });
             };
-
             lister();
+            //recuperer les evaluateurs!
+            $scope.evaluateurs=[];
+            var task = dao.getData(properties.urlEvaluateur, null, HTTP_METHOD.get);
+            //on attent la reponse...
+            task.promise.then(function (result) {
+                // fin d'attente
+                // erreur ?
+                if (result.err == 0) {
+                    //Pas d'erreur
+                    $scope.evaluateurs=result.data;
+                } else {
+                    // il y a eu des erreurs pour obtenir l'agenda
+                    //console.log("init fin att  "+angular.toJson(result));
+                    $scope.succes.show=false;
+                    $scope.errors = {
+                        title: properties.recupererEvaluateurError,
+                        messages: utils.getErrors(result),
+                        show: true
+                    };
+                }
+            });
+
+
             //Action Supprimer un projet
             $scope.supprimer=function(id){
-                    console.log("--- suppr");
                     var task=dao.getData(properties.urlProjet+"/"+id,null,HTTP_METHOD.delete);
                     //on attent la reponse
-                    $scope.waiting.show = true;
                     task.promise.then(function(result){
                         // fin d'attente
-                        $scope.waiting.show = false;
                         // erreur ?
                         if (result.err == 0) {
-                            //Pas d'erreur
-                            //console.log(angular.toJson(result.data));
-                            console.log("---");
+                            $scope.errors.show=false;
+                            $scope.succes={show:true,message:result.data};
                             lister();
                         } else {
                             // il y a eu des erreurs pour supprimer l'utilisateur
+                            $scope.succes.show=false;
                             $scope.errors = {
                                 title:  properties.supprimerProjetError,
                                 messages: utils.getErrors(result),
                                 show: true};
                         }
-
-
                     });
-
             };
 
             $scope.ajouter=function(){
@@ -110,22 +116,19 @@ app.controller("gestionProjetController",
                   nomProjet:$scope.nomProjetAjouter,
                   evaluateur:{idUtilisateur:$scope.idEvaluateurAjouter}
               };
-
-                console.log("--- ajouter");
-                var task=dao.getData(properties.urlProjet+"/"+id,null,HTTP_METHOD.post,projet);
+                var task=dao.getData(properties.urlProjet,null,HTTP_METHOD.post,projet);
                 //on attent la reponse
-                $scope.waiting.show = true;
                 task.promise.then(function(result){
                     // fin d'attente
-                    $scope.waiting.show = false;
                     // erreur ?
                     if (result.err == 0) {
                         //Pas d'erreur
-                        //console.log(angular.toJson(result.data));
-                        console.log("---");
+                        $scope.errors.show=false;
+                        $scope.succes={show:true,message:result.data};
                         lister();
                     } else {
-                        // il y a eu des erreurs pour supprimer l'utilisateur
+                        // il y a eu des erreurs
+                        $scope.succes.show=false;
                         $scope.errors = {
                             title:  properties.ajouterProjetError,
                             messages: utils.getErrors(result),
@@ -135,9 +138,9 @@ app.controller("gestionProjetController",
           };
 
             $scope.modifier=function(projet){
-                $scope.idProjetModifier=projet.idProjet; //ce champs est caché dans html
+                $scope.idProjetModifier=projet.idProjet;
                 $scope.nomProjetModifier=projet.nomProjet;
-                $scope.idEvaluateurModifier=projet.evaluateur.idUtilisateur;
+                $scope.idEvaluateurModifier=projet.idEvaluateur;
             };
 
             $scope.validerModification=function(){
@@ -149,27 +152,24 @@ app.controller("gestionProjetController",
                 };
 
                 console.log("--- modifier");
-                var task=dao.getData(properties.urlProjet+"/"+id,null,HTTP_METHOD.put,projet);
+                var task=dao.getData(properties.urlProjet+"/"+$scope.idProjetModifier,null,HTTP_METHOD.put,projet);
                 //on attent la reponse
-                $scope.waiting.show = true;
                 task.promise.then(function(result){
                     // fin d'attente
-                    $scope.waiting.show = false;
                     // erreur ?
                     if (result.err == 0) {
                         //Pas d'erreur
-                        //console.log(angular.toJson(result.data));
-                        console.log("---");
+                        $scope.errors.show=false;
+                        $scope.succes={show:true,message:result.data};
                         lister();
                     } else {
-                        // il y a eu des erreurs pour supprimer l'utilisateur
+                        // il y a eu des erreurs
+                        $scope.succes.show=false;
                         $scope.errors = {
-                            title:  properties.supprimerProjetError,
+                            title:  properties.modifierProjetError,
                             messages: utils.getErrors(result),
                             show: true};
                     }
-
-
                 });
             };
 
