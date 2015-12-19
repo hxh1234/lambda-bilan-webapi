@@ -179,6 +179,19 @@ public class UtilisateurController {
 		}
 		return new Reponse(0, PropretiesHelper.getText("utilisateur.update.password.success"));
 	}
+	
+	/*
+	 * Définir id google agenda
+	 */
+	@RequestMapping(value = "/utilisateurs/{id}" , method = RequestMethod.PUT , consumes = "application/json; charset=UTF-8")
+	public Reponse updatepass(@PathVariable("id") Long idUtilisateur,@RequestBody Long idCalendrierUtilisateur){
+		try {
+				utilisateurMetier.updateIdCalendrier(idUtilisateur, idCalendrierUtilisateur);
+		} catch (Exception e) {
+			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
+		}
+		return new Reponse(0, PropretiesHelper.getText("utilisateur.update.password.success"));
+	}
 
 	/*
 	 * depart d'un collaborateur
@@ -197,7 +210,7 @@ public class UtilisateurController {
 	 * mot de passe oublier
 	 */
 	
-	@RequestMapping(value = "/utilisateur", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
+	@RequestMapping(value = "/utilisateurs", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
 	public Reponse forgetPassword(@RequestBody Utilisateur utilisateur) {
 		try {
 			utilisateurMetier.forgetPassword(utilisateur);

@@ -12,7 +12,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 
-import com.lambda.bilan.helpers.MailService;
+import com.lambda.bilan.helpers.EmailService;
 
 
 
@@ -30,7 +30,7 @@ public class Boot {
     public static void main(String[] args) throws ParseException {
     	ConfigurableApplicationContext context =  SpringApplication.run(Boot.class, args);
         
-    	MailService mailMetier = context.getBean(MailService.class);
+    	EmailService mailMetier = context.getBean(EmailService.class);
         SimpleDateFormat sdf = new SimpleDateFormat(FORMAT);
 		String dateInString = DATE_DEPART;
 		Date date = sdf.parse(dateInString);
