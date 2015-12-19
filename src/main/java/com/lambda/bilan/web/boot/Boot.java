@@ -12,6 +12,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 
+import com.lambda.bilan.metier.MailMetier;
+
 
 
 
@@ -21,24 +23,25 @@ import org.springframework.context.annotation.Import;
 @Import(com.lambda.bilan.boot.Boot.class)
 
 public class Boot {
-	private static final String DATE_DEPART="2015-12-01";
-	private static final String FORMAT="yyyy-MM-dd";
-	private static final Long MOIS_EN_MILISECOND=2592000000L;
+	private static final String DATE_DEPART="2015-12-01 04:00:00.0";
+	private static final String FORMAT="yyyy-MM-dd HH:mm:ss.SSS";
+	private static final Long QUINZE_JOURS_EN_MILISECOND=1296000000L;
 	
     public static void main(String[] args) throws ParseException {
-        SpringApplication.run(Boot.class, args);
+    	ConfigurableApplicationContext context =  SpringApplication.run(Boot.class, args);
         
+    	MailMetier mailMetier = context.getBean(MailMetier.class);
         SimpleDateFormat sdf = new SimpleDateFormat(FORMAT);
 		String dateInString = DATE_DEPART;
 		Date date = sdf.parse(dateInString);
-
+		System.out.println(date.toString());
 		Timer timer = new Timer();
 	    TimerTask task = new TimerTask() {
 	        public void run()
 	        {
-	        	//fonction sender here
+	        	mailMetier.sendMailsManagerRH();
 	        }
 	    };
-	    timer.schedule( task,date ,MOIS_EN_MILISECOND);
+	    timer.schedule( task,date , QUINZE_JOURS_EN_MILISECOND);
     }
 }

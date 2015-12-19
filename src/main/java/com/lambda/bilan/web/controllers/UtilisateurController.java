@@ -41,7 +41,7 @@ public class UtilisateurController {
 			String passwordUtilisateur = RandomGenerator.randomString();
 			collaborateur.setPasswordUtilisateur(passwordUtilisateur);
 			utilisateurMetier.addUtilisateur(collaborateur);
-			mailMetier.sendMailNewCollaborateur(collaborateur);
+			mailMetier.sendMailNewUtilisateur(collaborateur);
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
@@ -57,7 +57,7 @@ public class UtilisateurController {
 			String passwordUtilisateur = RandomGenerator.randomString();
 			evaluateur.setPasswordUtilisateur(passwordUtilisateur);
 			utilisateurMetier.addUtilisateur(evaluateur);
-			//sendmailmail(utilisateur);
+			mailMetier.sendMailNewUtilisateur(evaluateur);
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
@@ -73,7 +73,7 @@ public class UtilisateurController {
 			String passwordUtilisateur = RandomGenerator.randomString();
 			managerRH.setPasswordUtilisateur(passwordUtilisateur);
 			utilisateurMetier.addUtilisateur(managerRH);
-			//sendmailmail(utilisateur,PasswordUtilisateur);
+			mailMetier.sendMailNewUtilisateur(managerRH);
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
@@ -89,7 +89,7 @@ public class UtilisateurController {
 			String passwordUtilisateur = RandomGenerator.randomString();
 			administrateur.setPasswordUtilisateur(passwordUtilisateur);
 			utilisateurMetier.addUtilisateur(administrateur);
-			//sendmailmail(utilisateur,PasswordUtilisateur);
+			mailMetier.sendMailNewUtilisateur(administrateur);
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
