@@ -1,12 +1,14 @@
 var app = angular.module("lambda.bilan", ["ngCookies","ngTable","isteven-multi-select"]);
 
 app.controller("listCollaborateurController",
-    ['$scope','$http','ngTableParams', '$filter','security', 'HTTP_METHOD','properties', 'utils','dao',
-        function ($scope,$http,NgTableParams, $filter ,security, HTTP_METHOD, properties , utils,dao ) {
+    ['$scope','$cookies','$http','ngTableParams', '$filter','security', 'HTTP_METHOD','properties', 'utils','dao',
+        function ($scope, $cookies,$http,NgTableParams, $filter ,security, HTTP_METHOD, properties , utils,dao ) {
 
 
             var idManagerRH=1;
-            $scope.errors={show:false};
+            $scope.user={nomUtilisateur :"Jaouad",prenomUtilisateur:"Elgharrasse"};
+            $scope.errors={show:false,messages:[]};
+            $scope.succes={show:false,message:''};
             $scope.tabledata={table:[]};
             $scope.tableParams = new NgTableParams({
                 page: 1,            // show first page
@@ -35,6 +37,7 @@ app.controller("listCollaborateurController",
             });
 
 
+            //chargement liste collabs
             var task = dao.getData("/managerRHs/"+idManagerRH+"/collaborateurs", null, HTTP_METHOD.get);
             //on attent la reponse...
             task.promise.then(function (result) {
@@ -45,6 +48,7 @@ app.controller("listCollaborateurController",
                     $scope.tabledata.table = result.data;
                     $scope.tableParams.reload();
                 } else {
+                    $scope.succes.show=false;
                     $scope.errors = {
                         title: properties.listerCollabError,
                         messages: utils.getErrors(result),
@@ -54,54 +58,14 @@ app.controller("listCollaborateurController",
             });
 
             $scope.evaluerObjectifs=function(collaborateur){
-                $cookies.setObject("",null);
-                utils.redirectTo("");
+                $cookies.putObject("collaborateur",{idUtilisateur:collaborateur.idUtilisateur});
 
             };
             $scope.afficherBAPs=function(collaborateur){
-                $cookies.setObject("",null);
-                utils.redirectTo("");
+                $cookies.putObject("collaborateur",{idUtilisateur:collaborateur.idUtilisateur,nomUtilisateur:"mol 51"});
             };
 
-
-            $scope.action={affecterProjet:undefined};
-
-
-
-            $scope.objectifsInput=[];
-            var task = dao.getData(properties.urlProjet, null, HTTP_METHOD.get);
-            //on attent la reponse...
-            task.promise.then(function (result) {
-                // fin d'attente
-                // erreur ?
-                if (result.err == 0) {
-                    //Pas d'erreurs
-                    console.log("===>"+angular.toJson(result.data));
-                    $scope.projetsInput=result.data;
-                    for(var i=0;i<$scope.objectifsInput.length;i++){
-                        $scope.objectifsInput[i].name=$scope.objectifsInput[i].nomProjet;
-                        $scope.objectifsInput[i].maker="  : "+$scope.objectifsInput[i].nomEvaluateur;
-                    }
-                } else {
-                    // il y a eu des erreurs
-                    $scope.errors = {
-                        title: properties.recuperationObjectifError,
-                        messages: utils.getErrors(result),
-                        show: true
-                    };
-                }
-            });
-
-            $scope.validerPlan=function(){
-                $scope.duree;
-                $scope.moyens;
-
-            };
-
-            $scope.validerAction=function(){
-
-                
-            };
+            $scope.action={affecterProjet:undefined,dresserPlanAmelioration:undefined};
 
 
         }])

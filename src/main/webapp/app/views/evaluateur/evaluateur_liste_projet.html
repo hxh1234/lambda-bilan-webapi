@@ -1,0 +1,397 @@
+    <!DOCTYPE html>
+    <html lang="en" ng-app="lambda.bilan">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="ThemeBucket">
+        <link rel="shortcut icon" href="#" type="image/png">
+        <title>ManagerRH</title>
+        <!--ios7-->
+        <link rel="stylesheet" type="text/css" href="../../assets/js/ios-switch/switchery.css" />
+        <!--wysihtml5 css -->
+        <link rel="stylesheet" type="text/css" href="../../assets/js/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
+        <link href="../../assets/css/style.css" rel="stylesheet">
+        <link href="../../assets/css/style-responsive.css" rel="stylesheet">
+        <link href="../../assets/css/jquery.stepy.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../assets/css/isteven-multi-select.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="../../assets/js/html5shiv.js"></script>
+        <script src="../../assets/js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+
+    <body class="sticky-header  left-side-collapsed" ng-controller="listeProjetController">
+
+    <section>
+        <!-- left side start-->
+        <div class="left-side sticky-left-side">
+
+            <!--logo and iconic logo start-->
+            <div class="logo">
+                <a href="index.html"><img src="../../assets/images/logo.png" alt=""></a>
+            </div>
+
+            <div class="logo-icon text-center">
+                <a href="index.html"><img src="../../assets/images/logo_icon.png" alt=""></a>
+            </div>
+            <!--logo and iconic logo end-->
+
+            <div class="left-side-inner">
+
+                <!-- visible to small devices only -->
+                <div class="visible-xs hidden-sm hidden-md hidden-lg">
+                    <div class="media logged-user">
+                        <img alt="" src="../../assets/images/photos/user-avatar.png" class="media-object">
+                        <div class="media-body">
+                            <h4><a href="#">Anas masaaf</a></h4>
+                        </div>
+                    </div>
+
+                    <h5 class="left-nav-title">Mon Compte</h5>
+                    <ul class="nav nav-pills nav-stacked custom-nav">
+                      <li><a href="#"><i class="fa fa-user"></i> <span>Profile</span></a></li>
+                    </ul>
+                </div>
+
+                 <!--sidebar nav start-->
+                <ul class="nav nav-pills nav-stacked custom-nav">
+                    <li class="active"><a href="evaluateur_liste_projet.html"><i class="fa fa-tasks"></i> <span>Liste des projets</span></a></li>
+                    <li><a href="profil.html"><i class="fa fa-user"></i> <span>Mon profil</span></a></li>
+                    <li><a href="login.html"><i class="fa fa-sign-in"></i> <span>Se deconnecter</span></a></li>
+                </ul>
+                <!--sidebar nav end-->
+
+            </div>
+        </div>
+        <!-- left side end-->
+
+        <!-- main content start-->
+        <div class="main-content" >
+
+            <!-- header section start-->
+            <div class="header-section">
+
+                <!--toggle button start-->
+                <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+                <!--toggle button end-->
+
+                <!-- header page-->
+                <ng-include src="'../includes/header_page.html'"></ng-include>
+
+            </div>
+            <!--body wrapper start-->
+            <div class="wrapper">
+
+                <div class="page-heading">
+                    <h3>
+                        Evaluateur  <small> Liste des Projets</small>
+                    </h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--breadcrumbs start -->
+                        <ul class="breadcrumb panel">
+                            <li class="active"> Liste des Projets</li>
+                        </ul>
+                        <!--breadcrumbs end -->
+                    </div>
+                </div>
+                <!-- header body -->
+                <ng-include src="'../includes/errors_succes.html'"></ng-include>
+
+
+                <!-- present working link End-->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <section class="panel">
+                            <header class="panel-heading">
+                                liste des projet
+                            </header>
+                            <div class="panel-body">
+                                <div class="adv-table">
+                                    <div>
+                                     <table ng-table="tableParams" class="display table table-striped table-bordered" show-filter="true">
+                                            <tr ng-repeat="projet in $data ">
+                                                <td class="text-center" title="'Code Projet'" filter="{ idProjet:'text'}" sortable="'idProjet'">
+                                                    {{projet.idProjet}}</td>
+                                                <td class="text-center" title="'Nom Projet'" filter="{ nomProjet:'text'}" sortable="'nomProjet'">
+                                                    {{projet.nomProjet}}</td>
+                                                <td class="text-center" title="'Options'">
+                                                    <a ng-click="listerCollab(projet)" href="#collaborateursModal" data-toggle="modal" data-placement="top" class="tooltips">
+                                                        <button class="btn btn-danger btn-sm" type="button">
+                                                            <i class="fa fa-users">collaborateurs</i>
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- Modal liste collaborateurs -->
+                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" 
+                     id="collaborateursModal" class="modal fade">
+                    <div class="modal-dialog  modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Liste des Collaborateurs</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <section class="panel">
+                                        <header class="panel-heading">
+                                            Collaborateurs de {{projet.nomProjet}}
+                                        </header>
+                                        <div class="panel-body">
+
+                                                <!-- Tableau collaborateurs -->
+                                        <table class="display table table-striped table-bordered" id="hidden-table-info">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-center">Matricule</th>
+                                                <th class="text-center">Prénom &amp; Nom</th>
+                                                <th class="text-center">Email</th>
+                                                <th class="text-center">Telephone</th>
+                                                <th class="text-center">Option</th>
+                                            </tr>
+                                        </thead>
+                                            <tbody>
+                                            <tr ng-repeat="c in collaborateurs" class="gradeX">
+                                                <td>{{c.idUtilisateur}}</td>
+                                                <td>{{c.nomUtilisateur+" "+c.prenomUtilisateur}}</td>
+                                                <td>{{c.emailUtilisateur}}</td>
+                                                <td>{{c.telephoneUtilisateur}}</td>
+                                                <td class="text-center">
+                                                    <a ng-click="setCollaborateur(c)" href="#definirInteventionModal" data-toggle="modal" data-placement="top" class="tooltips">
+                                                        <button data-dismiss="modal" class="btn btn-danger btn-sm" type="button">
+                                                            <i class="fa fa-pencil-square-o"> définir intervention</i>
+                                                        </button> 
+                                                    </a>
+                                                    <a href="#feedbackModal" data-toggle="modal"  data-placement="top" class="tooltips">
+                                                        <button ng-click="action.creerFeedback(c)" data-dismiss="modal" class="btn btn-danger btn-sm" type="button">
+                                                            <i class="fa fa-refresh"> Creer feedBack</i>
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        </table>
+
+
+                                                <!-- Tableau collaborateurs end -->
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- modal liste collaborateurs end -->
+                 <!-- Modal definir intervention start -->
+                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" 
+                     id="definirInteventionModal" class="modal fade">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Définir intervention</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <section class="panel">
+                                        <header class="panel-heading">
+                                            Intervention de {{"#"+collaborateur.idUtilisateur+"  -  "+collaborateur.nomUtilisateur }} sur le projet : {{projet.nomProjet}}
+                                        </header>
+                                        <div class="panel-body">
+                                            <form class="form-horizontal" role="form">
+                                                <div class="form-group">
+                                                    <label for="nom" class="col-sm-3 control-label">Nom </label>
+                                                    <div class="col-sm-9">
+                                                   <input ng-model="intervention.nomIntervention" name="nom" class="form-control" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="remarque" class="col-sm-3 control-label">Remarque</label>
+                                                    <div class="col-sm-9">
+                                                   <input ng-model="intervention.remarqueIntervention" name="remarque" class="form-control" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="role" class="col-sm-3 control-label">Role joué par le collaborateur</label>
+                                                    <div class="col-sm-9">
+                                                   <input ng-model="intervention.roleJoue" name="role" class="form-control" type="text" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="jourvalorise" class="col-sm-3 control-label">Nombre de jours valorisés</label>
+                                                    <div class="col-sm-9">
+                                                   <input ng-model="intervention.nombreJoursValorises" name="jourvalorise" class="form-control" type="number" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="datedebut" class="col-sm-3 control-label">Date Début<span
+                                                       class="text-danger"> *</span></label>
+                                                    <div class="col-sm-9">
+                                                        <input ng-model="intervention.dateDebutIntervention" name="datedebut" class="form-control" placeholder="nom" type="text"
+                                                    required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="datefin" class="col-sm-3 control-label">Date Fin<span
+                                                       class="text-danger"> *</span></label>
+                                                    <div class="col-sm-9">
+                                                        <input ng-model="intervention.dateFinIntervention" name="datefin" class="form-control" placeholder="nom" type="text"
+                                                    required>
+                                                    </div>
+                                                </div>
+                                                <button data-dismiss="modal" ng-click="ajouterIntervention()" type="submit" class="finish btn btn-success btn-extend">
+                                                    Ajouter </button>
+                                            </form>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+                <!-- modal definir intervention end -->
+                 <!-- Modal feedback user -->
+                <div ng-controller="feedbackController" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="feedbackModal" class="modal fade">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">FeedBack</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                <div class="panel">
+                                    <div class="panel-body invoice">
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4">
+                                                <h3 class="invoice-title">FeedBack</h5>
+                                            </div>
+                                            <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4">
+                                                <img class="inv-logo" src="../../assets/images/invoice-logo.jpg" alt=""/>
+                                            </div>
+                                        </div>
+                                        <div class="invoice-address">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-5">
+                                                    <div class="inv-col"><span>Code Projet#</span> {{projet.idProjet}}</div>
+                                                    <div class="inv-col"><span>Nom projet :</span>{{projet.nomProjet}}</div>
+                                                    <div class="inv-col"><span>Date début et fin de l’intervention</span>{{intervention.dateDebutIntervention+
+                                                        "  "+intervention.dateFinIntervention}}</div>
+                                                    <div class="inv-col"><span>Rôle qui a joué au sein de l’équipe projet :</span>{{intervention.roleJoue}}</div>
+                                                    <div class="inv-col"><span>Nombre de jours valorisés sur le projet</span> {{intervention.nombreJoursValorises}}</div>
+                                                </div>
+                                                 <div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-3">
+                                                    <div class="inv-col"><span>Matricule collaborateur#</span>{{collaborateur.idUtilisateur}}</div>
+                                                    <div class="inv-col"><span>Nom & Prenom :</span>{{collaborateur.nomUtilisateur}}</div>
+                                                    <div class="inv-col"><span>Poste actuel :</span>{{collaborateur.posteActuelCollaborateur}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table class="table table-bordered table-invoice">
+                                        <thead>
+                                        <tr>
+                                            <th>Qualification</th>
+                                            <th >Qualification</th>
+                                            <th >Remarque</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="note in intervention.notes">
+                                            <td>
+                                                <strong>{{note.theme.intituleTheme}}</strong>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <select class="form-control input-sm m-bot15" ng-model="note.qualification.idQualification"
+                                                            ng-options="q.idQualification as q.intituleQualification
+                                                                         for q in qualifications">
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td ><input ng-model="note.remarqueNote" class="form-control" placeholder="Remarque" type="text"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <button data-dismiss="modal" class="btn btn-default btn-sm" type="button">Annuler</button>
+                                <div class="finish">
+                                    <button ng-click="enregitrerFeedback()" type="submit" class=" btn btn-success btn-sm  ">Enregistrer feedback</button>
+                                    <button data-dismiss="modal" type="submit" ng-click="validerFeedback()" class=" btn btn-danger btn-sm">Valider feedback</button>
+                                </div>
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <!-- modal feedback  end -->
+
+
+
+            </div>
+            <!--body wrapper end-->
+
+            <!--footer section start-->
+            <footer id="footer">
+                2015 &copy; Anas & Jaouad
+            </footer>
+            <!--footer section end-->
+
+        </div>
+        <!-- main content end-->
+    </section>
+
+
+    <script type="text/javascript"  src="../../assets/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="../../assets/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="../../assets/bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="../../directives/isteven-multi-select.js"></script>
+    <script type="text/javascript" src="../../controllers/evaluateur/listeProjetController.js"></script>
+    <script type="text/javascript" src="../../controllers/evaluateur/feedbackController.js"></script>
+    <script type="text/javascript" src="../../services/constants.js"></script>
+    <script type="text/javascript" src="../../services/dao.js"></script>
+    <script type="text/javascript" src="../../services/utils.js"></script>
+    <script type="text/javascript" src="../../services/properties.js"></script>
+    <script type="text/javascript" src="../../services/security.js"></script>
+    <!-- Placed js at the end of the document so the pages load faster -->
+    <script src="../../assets/js/jquery-1.10.2.min.js"></script>
+    <script src="../../assets/js/jquery-ui-1.9.2.custom.min.js"></script>
+    <script src="../../assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../../assets/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/modernizr.min.js"></script>
+    <script src="../../assets/js/jquery.nicescroll.js"></script>
+    <script src="../../assets/js/jquery.validate.min.js"></script>
+    <script src="../../assets/js/jquery.stepy.js"></script>
+    <!--ios7 *********-->
+    <script src="../../assets/js/ios-switch/switchery.js" ></script>
+    <script src="../../assets/js/ios-switch/ios-init.js" ></script>
+    <!--wysihtml5 plugins-->
+    <script type="text/javascript" src="../../assets/js/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+    <script type="text/javascript" src="../../assets/js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+    <!--common scripts for all pages-->
+    <script src="../../assets/js/scripts.js"></script>
+    <script>
+        jQuery(document).ready(function(){
+            $('.wysihtml5').wysihtml5();
+        });
+    </script>
+    <script src="../../assets/js/ngTable.js"></script>
+
+
+
+    </body>
+    </html>
