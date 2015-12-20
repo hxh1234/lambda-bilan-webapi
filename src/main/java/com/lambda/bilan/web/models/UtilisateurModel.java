@@ -32,7 +32,7 @@ public class UtilisateurModel {
 		return listeEvaluateurRvised;
 	}
 
-	private static Map<String, Object> getMapForUtilisateur(Utilisateur utilisateur){
+	public static Map<String, Object> getMapForUtilisateur(Utilisateur utilisateur){
 		if(utilisateur==null)
 			return null;
 		Map<String, Object> hash = new HashMap<String, Object>();		

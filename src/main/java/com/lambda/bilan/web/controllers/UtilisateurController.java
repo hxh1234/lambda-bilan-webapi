@@ -42,9 +42,9 @@ public class UtilisateurController {
 
 
 	/*
-	 * Ajouter un utilisateur 
+	 * Ajouter un utilisateur *
 	 */
-	//collaborateur
+	//collaborateur *
 	@RequestMapping(value = "/collaborateurs", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
 	public Reponse addColaborateur(@RequestBody Collaborateur collaborateur) {
 		try {
@@ -56,7 +56,7 @@ public class UtilisateurController {
 		return new Reponse(0, PropretiesHelper.getText("utilisateur.add.success"));
 	}
 
-	//evaluateur
+	//evaluateur *
 	@RequestMapping(value = "/evaluateurs", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
 	public Reponse addEvaluateur(@RequestBody Evaluateur evaluateur) {
 		try {
@@ -67,7 +67,7 @@ public class UtilisateurController {
 		return new Reponse(0, PropretiesHelper.getText("utilisateur.add.success"));
 	}
 
-	//managerRH
+	//managerRH *
 	@RequestMapping(value = "/managerRHs", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
 	public Reponse addManagerRH(@RequestBody ManagerRH managerRH) {
 		try {
@@ -78,7 +78,7 @@ public class UtilisateurController {
 		return new Reponse(0, PropretiesHelper.getText("utilisateur.add.success"));
 	}
 
-	//administrateur
+	//administrateur *
 	@RequestMapping(value = "/administrateurs", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
 	public Reponse addAdministrateur(@RequestBody Administrateur administrateur) {
 		try {
@@ -93,7 +93,7 @@ public class UtilisateurController {
 	 * Mise a jour d'un utilisateur
 	 */
 
-	//collaborateur
+	//collaborateur *
 	@RequestMapping(value = "/collaborateurs/{id}", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
 	public Reponse updateCollaborateur(@PathVariable("id") Long id, @RequestBody Collaborateur collaborateur)  {
 		try {
@@ -107,7 +107,7 @@ public class UtilisateurController {
 		return new Reponse(0, PropretiesHelper.getText("utilisateur.update.success"));
 	}
 
-	//evaluateur
+	//evaluateur *
 	@RequestMapping(value = "/evaluateurs/{id}", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
 	public Reponse updateEvaluateur(@PathVariable("id") Long id, @RequestBody Evaluateur evaluateur)  {
 		try {
@@ -121,7 +121,7 @@ public class UtilisateurController {
 		return new Reponse(0, PropretiesHelper.getText("utilisateur.update.success"));
 	}
 
-	//managerRH
+	//managerRH *
 	@RequestMapping(value = "/managerRHs/{id}", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
 	public Reponse updateManagerRH(@PathVariable("id") Long id, @RequestBody ManagerRH managerRH)  {
 		try {
@@ -135,7 +135,7 @@ public class UtilisateurController {
 		return new Reponse(0, PropretiesHelper.getText("utilisateur.update.success"));
 	}
 
-	//administrateur
+	//administrateur *
 	@RequestMapping(value = "/administrateurs/{id}", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
 	public Reponse updateAdministrateur(@PathVariable("id") Long id, @RequestBody Administrateur administrateur)  {
 		try {
@@ -150,7 +150,7 @@ public class UtilisateurController {
 	}
 
 	/*
-	 * obtenir un utilisateur
+	 * obtenir un utilisateur *
 	 */
 	@RequestMapping(value="/utilisateurs/{id}",method=RequestMethod.GET)
 	public Reponse getUtilisateur(@PathVariable("id") Long id){
@@ -167,14 +167,14 @@ public class UtilisateurController {
 	@RequestMapping(value="/login",method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
 	public Reponse login(@RequestBody Utilisateur utilisateur){
 		try {
-			return new Reponse(0,utilisateurMetier.login(utilisateur.getEmailUtilisateur(), utilisateur.getPasswordUtilisateur()));
+			return new Reponse(0,UtilisateurModel.getMapForUtilisateur( utilisateurMetier.login(utilisateur.getEmailUtilisateur(), utilisateur.getPasswordUtilisateur())));
 		} catch (Exception e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
 	}
 
 	/*
-	 * Suppression d'un utilisateur
+	 * Suppression d'un utilisateur *
 	 */
 
 	@RequestMapping(value = "/utilisateurs/{id}", method = RequestMethod.DELETE)
@@ -219,7 +219,7 @@ public class UtilisateurController {
 	}
 
 	/*
-	 * depart d'un collaborateur
+	 * depart d'un collaborateur *
 	 */
 	@RequestMapping(value = "/utilisateur/{id}", method = RequestMethod.PUT)
 	public Reponse departCollaborateur(@PathVariable("id") Long id) {
@@ -246,7 +246,7 @@ public class UtilisateurController {
 	}
 
 	/*
-	 * Liste des utilisateurs
+	 * Liste des utilisateurs *
 	 */
 	@RequestMapping(value = "/utilisateurs" , method = RequestMethod.GET)
 	public Reponse getAllUtilisateur()  {
@@ -270,7 +270,7 @@ public class UtilisateurController {
 	}
 
 	/*
-	 * liste des managerRH
+	 * liste des managerRH *
 	 */
 	@RequestMapping(value = "/managerRHs" , method = RequestMethod.GET)
 	public Reponse getAllManagerRH()  {
@@ -282,7 +282,7 @@ public class UtilisateurController {
 	}
 
 	/*
-	 * liste des Evaluateur
+	 * liste des Evaluateur *
 	 */
 	@RequestMapping(value = "/evaluateurs" , method = RequestMethod.GET)
 	public Reponse getAllEvaluateur()  {
@@ -294,7 +294,7 @@ public class UtilisateurController {
 	}
 
 	/*
-	 * liste des collaborateurs sans projets
+	 * liste des collaborateurs sans projets *
 	 */
 	@RequestMapping(value="/collaborateurs_without_projet", method=RequestMethod.GET)
 	public Reponse getAllCollaborateurWithoutProjet(){
@@ -306,7 +306,7 @@ public class UtilisateurController {
 	}
 
 	/*
-	 * liste des collaborateurs sans Objectifs
+	 * liste des collaborateurs sans Objectifs *
 	 */
 	@RequestMapping(value="/collaborateurs_without_objectif" , method = RequestMethod.GET)
 	public Reponse getAllCollaborateurWithoutObjectif(){
@@ -318,7 +318,7 @@ public class UtilisateurController {
 	}
 
 	/*
-	 * liste collaborateur d'un mangerRH
+	 * liste collaborateur d'un mangerRH *
 	 */
 	@RequestMapping(value="/managerRHs/{id}/collaborateurs" , method = RequestMethod.GET)
 	public Reponse getAllCollaborateurOfManagerRH(@PathVariable("id") Long id){
@@ -330,7 +330,7 @@ public class UtilisateurController {
 	}
 
 	/*
-	 * liste collaborateur pour un projet
+	 * liste collaborateur pour un projet *
 	 */
 	@RequestMapping(value="/projets/{id}/collaborateurs" , method = RequestMethod.GET)
 	public Reponse getAllCollaborateurOfProjet(@PathVariable("id") Long id){
