@@ -40,9 +40,9 @@ public class CollaborateurModel {
 		Intervention intervention =interventionMetier.getIntervention(idProjet, collaborateur.getIdUtilisateur());
 		if(intervention.getDateFinIntervention()==null)
 			hash.put("option",0);
-		else if(intervention.getDateFinIntervention().before(new Date()))
+		else if(intervention.getDateFinIntervention().before(new Date()) && intervention.getEtatIntervention()==false)
 			hash.put("option",1);
-		else
+		else 
 			hash.put("option",2);
 		return hash;
 	}
