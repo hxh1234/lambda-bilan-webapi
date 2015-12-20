@@ -11,12 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lambda.bilan.entities.Collaborateur;
-import com.lambda.bilan.entities.Intervention;
 import com.lambda.bilan.entities.Note;
 import com.lambda.bilan.helpers.LambdaException;
 import com.lambda.bilan.metier.IFeedBackMetier;
 import com.lambda.bilan.metier.IInterventionMetier;
-import com.lambda.bilan.metier.InterventionMetier;
 import com.lambda.bilan.web.helpers.ExceptionHelpers;
 import com.lambda.bilan.web.helpers.PropretiesHelper;
 import com.lambda.bilan.web.models.FeedBackModel;
@@ -31,7 +29,7 @@ public class FeedBackContoller {
 	IInterventionMetier interventionMetier;
 	
 	/*
-	 * liste des feedback d'un collaborateur
+	 * liste des feedback d'un collaborateur *
 	 */
 	@RequestMapping(value = "/collaborateurs/{id}/feedBacks" , method = RequestMethod.GET)
 	public Reponse getAllfeedBackOfCollaborateurByYear(@PathVariable("id") Long id,Date year) {
@@ -44,7 +42,7 @@ public class FeedBackContoller {
 	}
 	
 	/*
-	 * Cree Feedback
+	 * Cree Feedback *
 	 */
 	@RequestMapping(value="/feedbacks",method=RequestMethod.POST, consumes = "application/json; charset=UTF-8")
 	public Reponse assignProjet(@RequestBody List<Note> notes){
@@ -57,7 +55,7 @@ public class FeedBackContoller {
 	}
 	
 	/*
-	 * Valider feedback 
+	 * Valider feedback *
 	 */
 	@RequestMapping(value = "/feedbacks/{id}", method = RequestMethod.PUT)
 	public Reponse validerFeedBack(@PathVariable("id") Long idIntervention) {

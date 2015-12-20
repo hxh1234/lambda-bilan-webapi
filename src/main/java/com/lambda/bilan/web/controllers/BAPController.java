@@ -18,7 +18,7 @@ public class BAPController {
 	IBAPMetier bapMetier;
 	
 	/*
-	 * list des BAP d'un collaborateur
+	 * list des BAP d'un collaborateur *
 	 */
 	@RequestMapping(value = "/collaborateurs/{id}/baps" , method = RequestMethod.GET)
 	public Reponse getAllBAPOfCollaborateur(@PathVariable("id") Long id) {

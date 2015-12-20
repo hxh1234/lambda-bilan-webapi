@@ -57,6 +57,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST,"/projets").hasRole("ADMINISTRATEUR")
 				.antMatchers(HttpMethod.PUT,"/projets/*").hasRole("ADMINISTRATEUR")
 				.antMatchers(HttpMethod.DELETE,"/projets/*").hasRole("ADMINISTRATEUR")
+				/**ADMIN :Blan de performance**/
+				.antMatchers(HttpMethod.GET,"/collaborateurs/*/baps").hasRole("ADMINISTRATEUR")
+				.antMatchers(HttpMethod.GET,"/collaborateurs/*/feedBacks").hasRole("ADMINISTRATEUR")
+				.antMatchers(HttpMethod.GET,"/collaborateurs/*/ficheObjectifs").hasRole("ADMINISTRATEUR")
+				.antMatchers(HttpMethod.GET,"/collaborateurs/*/planAmeliorations").hasRole("ADMINISTRATEUR")
 				/**MANAGER RH: Accueuil**/
 				.antMatchers(HttpMethod.GET,"/collaborateurs_without_projet").hasRole("MANAGERRH")
 				.antMatchers(HttpMethod.GET,"/collaborateurs_without_objectif").hasRole("MANAGERRH")
@@ -93,22 +98,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET,"/themes").hasRole("EVALUATEUR")
 				.antMatchers(HttpMethod.GET,"/qualifications").hasRole("EVALUATEUR")
 				.antMatchers(HttpMethod.PUT,"/feedbacks/*").hasRole("EVALUATEUR")
-				/**Collaborateur **/
+				/**Collaborateur : Accueuil**/
+				.antMatchers(HttpMethod.GET,"/collaborateurs/*/objectifs_revised").hasRole("COLLABORATEUR")
+				.antMatchers(HttpMethod.PUT,"/objectifs_refuser/*").hasRole("COLLABORATEUR")				
+				/**Collaborateur : liste des projet**/
+				.antMatchers(HttpMethod.GET,"/collaborateurs/*/projets").hasRole("COLLABORATEUR")
+				/**Collaborateur : fiche objectifs **/
+				.antMatchers(HttpMethod.GET,"/collaborateurs/*/ficheObjectifs_collaborateur").hasRole("COLLABORATEUR")
 				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+				.antMatchers(HttpMethod.GET,"/collaborateurs/*/baps").hasRole("COLLABORATEUR")
+				.antMatchers(HttpMethod.GET,"/collaborateurs/*/feedBacks").hasRole("COLLABORATEUR")
+				.antMatchers(HttpMethod.GET,"/collaborateurs/*/planAmeliorations").hasRole("COLLABORATEUR")
 				
 				;
 		

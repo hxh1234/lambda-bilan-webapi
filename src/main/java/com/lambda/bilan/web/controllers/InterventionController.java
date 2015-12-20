@@ -23,7 +23,7 @@ public class InterventionController {
 	IInterventionMetier interventionMetier;
 
 	/*
-	 * assignation des projets au collaborateur
+	 * assignation des projets au collaborateur *
 	 */
 	@RequestMapping(value="/interventions",method=RequestMethod.POST, consumes = "application/json; charset=UTF-8")
 	public Reponse assignProjet(@RequestBody List<Intervention>interventions){
@@ -48,7 +48,7 @@ public class InterventionController {
 	}
 
 	/*
-	 * Obtenir une intervention
+	 * Obtenir une intervention *
 	 */
 	@RequestMapping(value="/interventions/{idProjet}/{idCollaborateur}",method=RequestMethod.GET)
 	public Reponse getIntervention(@PathVariable("idProjet") Long idProjet,@PathVariable("idCollaborateur") Long idCollaborateur){
@@ -60,7 +60,7 @@ public class InterventionController {
 	}
 
 	/*
-	 * definir intervantion (par un Evaluateur)
+	 * definir intervantion (par un Evaluateur) *
 	 */
 	@RequestMapping(value = "/interventions/{idProjet}/{idCollaborateur}", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
 	public Reponse defineIntervention(@PathVariable("idProjet") Long idProjet,@PathVariable("idCollaborateur") Long idCollaborateur, @RequestBody Intervention intervention)  {
@@ -74,7 +74,7 @@ public class InterventionController {
 	}
 
 	/*
-	 * liste des themes
+	 * liste des themes *
 	 */
 	@RequestMapping(value="/themes" , method = RequestMethod.GET)
 	public Reponse getAllTheme(){
@@ -86,7 +86,7 @@ public class InterventionController {
 	}
 
 	/*
-	 * liste des qualifications
+	 * liste des qualifications *
 	 */
 	@RequestMapping(value="/qualifications" , method = RequestMethod.GET)
 	public Reponse getAllQualification(){

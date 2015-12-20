@@ -24,7 +24,7 @@ public class ProjetController {
 	IProjetMetier projetMetier;
 	
 	/*
-	 * ajouter un projet
+	 * ajouter un projet *
 	 */
 	@RequestMapping(value = "/projets", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
 	public Reponse addProjet(@RequestBody Projet projet) {
@@ -37,7 +37,7 @@ public class ProjetController {
 	}
 
 	/*
-	 * mise a jour du projet
+	 * mise a jour du projet *
 	 */
 	@RequestMapping(value = "/projets/{id}", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
 	public Reponse updateProjet(@PathVariable  ("id") Long id, @RequestBody Projet projet){
@@ -53,7 +53,7 @@ public class ProjetController {
 	}
 
 	/*
-	 * supprimer un projet
+	 * supprimer un projet *
 	 */
 	@RequestMapping(value = "/projets/{id}", method = RequestMethod.DELETE)
 	public Reponse deleteProjet(@PathVariable("id") Long id) {
@@ -66,7 +66,7 @@ public class ProjetController {
 	}
 	
 	/*
-	 * list des projets
+	 * list des projets *
 	 */
 	@RequestMapping(value = "/projets" , method = RequestMethod.GET)
 	public Reponse getAllProjet(){
@@ -78,7 +78,7 @@ public class ProjetController {
 	}
 	
 	/*
-	 * liste des projet pour un evaluateur
+	 * liste des projet pour un evaluateur *
 	 */
 	@RequestMapping(value = "/evaluateurs/{id}/projets" , method = RequestMethod.GET)
 	public Reponse getAllProjetOfEvaluateur(@PathVariable("id") Long id){
@@ -91,7 +91,7 @@ public class ProjetController {
 	}
 	
 	/*
-	 * liste des projet pour un collaborateur
+	 * liste des projet pour un collaborateur *
 	 */
 	@RequestMapping(value = "/collaborateurs/{id}/projets" , method = RequestMethod.GET)
 	public Reponse getAllProjetOfCollaborateur(@PathVariable("id") Long id){

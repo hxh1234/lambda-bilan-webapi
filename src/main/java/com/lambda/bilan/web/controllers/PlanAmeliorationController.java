@@ -24,7 +24,7 @@ public class PlanAmeliorationController {
 	IPlanAmeliorationMetier planAmeliorationMetier;
 	
 	/*
-	 * plan Amelioration d'un collaborateur
+	 * plan Amelioration d'un collaborateur *
 	 */
 	@RequestMapping(value = "/collaborateurs/{id}/planAmeliorations" , method = RequestMethod.GET)
 	public Reponse getPlanAmeliorationOfCollaborateurByYear(@PathVariable("id") Long id ,Date year) {
@@ -37,7 +37,7 @@ public class PlanAmeliorationController {
 	}
 	
 	/*
-	 * Ajouter un plan d'Amelioration pour un collaborateur
+	 * Ajouter un plan d'Amelioration pour un collaborateur *
 	 */
 	
 	@RequestMapping(value = "/planAmeliorations", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")

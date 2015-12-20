@@ -6,19 +6,19 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.lambda.bilan.dao.UtilisateurDAO2;
+//import com.lambda.bilan.dao.UtilisateurDAO2;
 import com.lambda.bilan.entities.Utilisateur;
 
 @Service
 public class AppUserDetailsService implements UserDetailsService {
 
-	@Autowired
-	private UtilisateurDAO2 dao;
+	//@Autowired
+	//private UtilisateurDAO2 dao;
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		// on cherche l'utilisateur via son login
-		Utilisateur user = dao.findUserByEmailUtilisateur(email);	
+		Utilisateur user = null;//dao.findUserByEmailUtilisateur(email);	
 		// trouvé ?
 		if (user == null) {
 			throw new UsernameNotFoundException(String.format("login [%s] inexistant", email));

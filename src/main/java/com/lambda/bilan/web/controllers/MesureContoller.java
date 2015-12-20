@@ -23,7 +23,7 @@ public class MesureContoller {
 	IMesureMetier mesureMetier;
 	
 	/*
-	 * Ajouter Mesure
+	 * Ajouter Mesure *
 	 */
 	@RequestMapping(value = "/mesures", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
 	public Reponse addMesure(@RequestBody List<Mesure> mesures) {
@@ -41,7 +41,7 @@ public class MesureContoller {
 	}
 	
 	/*
-	 * mise a jour Mesure
+	 * mise a jour Mesure*
 	 */
 	@RequestMapping(value = "/mesures/{id}", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
 	public Reponse updateMesure(@PathVariable("id") Long id, @RequestBody Mesure mesure)  {
@@ -57,7 +57,7 @@ public class MesureContoller {
 	}
 	
 	/*
-	 * Suppression Mesure
+	 * Suppression Mesure *
 	 */
 
 	@RequestMapping(value = "/mesures/{id}", method = RequestMethod.DELETE)
@@ -71,7 +71,7 @@ public class MesureContoller {
 	}
 
 	/*
-	 * Liste Responsable Mesure
+	 * Liste Responsable Mesure *
 	 */
 	@RequestMapping(value = "/responsables_mesures", method = RequestMethod.GET)
 	public Reponse getAllResponsableMesure() {

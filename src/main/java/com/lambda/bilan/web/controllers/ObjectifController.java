@@ -33,7 +33,7 @@ public class ObjectifController {
 	@Autowired
 	IUtilisateurMetier utilisateurMetier;
 	/*
-	 * Ajouter des objectifs
+	 * Ajouter des objectifs *
 	 */
 	@RequestMapping(value = "/objectifs", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
 	public Reponse addObjectif(@RequestBody List<Objectif> objectifs) {
@@ -46,7 +46,7 @@ public class ObjectifController {
 	}
 
 	/*
-	 * Mise à jour Objectif
+	 * Mise à jour Objectif *
 	 */
 	@RequestMapping(value = "/objectifs/{id}", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
 	public Reponse updateObjectif(@PathVariable("id") Long id, @RequestBody Objectif objectif)  {
@@ -62,7 +62,7 @@ public class ObjectifController {
 	}
 
 	/*
-	 * Supression Objectif
+	 * Supression Objectif *
 	 */
 	@RequestMapping(value = "/objectifs/{id}", method = RequestMethod.DELETE)
 	public Reponse deleteObjectif(@PathVariable("id") Long id) {
@@ -75,7 +75,7 @@ public class ObjectifController {
 	}
 
 	/*
-	 * obtenir une objectif
+	 * obtenir une objectif *
 	 */
 	@RequestMapping(value="/objectifs/{id}",method=RequestMethod.GET)
 	public Reponse getUtilisateur(@PathVariable("id") Long id){
@@ -87,7 +87,7 @@ public class ObjectifController {
 	}
 
 	/*
-	 * Valider l'objectif
+	 * Valider l'objectif *
 	 */
 	@RequestMapping(value = "/objectifs_valider/{id}", method = RequestMethod.PUT)
 	public Reponse validerObjectif(@PathVariable("id") Long id)  {
@@ -100,7 +100,7 @@ public class ObjectifController {
 	}
 
 	/*
-	 * Refuser l'objectif
+	 * Refuser l'objectif *
 	 */
 	@RequestMapping(value = "/objectifs_refuser/{id}", method = RequestMethod.PUT)
 	public Reponse refuserObjectif(@PathVariable("id") Long id)  {
@@ -113,7 +113,7 @@ public class ObjectifController {
 	}
 
 	/*
-	 * fiche d'objectifs
+	 * fiche d'objectifs *
 	 */
 	@RequestMapping(value = "/collaborateurs/{id}/ficheObjectifs" , method = RequestMethod.GET)
 	public Reponse getFicheObjectifsOfCollaborateurByYear(@PathVariable("id") Long id ,Date year) {
@@ -139,7 +139,7 @@ public class ObjectifController {
 	}
 
 	/*
-	 * liste des objectifs refusé
+	 * liste des objectifs refusé *
 	 */
 	@RequestMapping(value="/objectifs_refus/{id}" , method = RequestMethod.GET)
 	public Reponse getAllObjectifsRefusFromCollaborateurOfManagerRH(@PathVariable("id") Long id){
@@ -151,7 +151,7 @@ public class ObjectifController {
 	}
 
 	/*
-	 * liste des categories
+	 * liste des categories *
 	 */
 	@RequestMapping(value="/categories" , method = RequestMethod.GET)
 	public Reponse getAllCategorie(){
@@ -163,7 +163,7 @@ public class ObjectifController {
 	}
 	
 	/*
-	 * liste des objectifs d'un collaborateur cette année
+	 * liste des objectifs d'un collaborateur cette année *
 	 */
 	@RequestMapping(value = "/collaborateurs/{id}/objectifs", method = RequestMethod.GET)
 	public Reponse getAllObjectifsOfCollaborateurThisYear(@PathVariable("id") Long id){
@@ -176,7 +176,7 @@ public class ObjectifController {
 	}
 	
 	/*
-	 * liste des objectifs d'un collaborateur cette année
+	 * liste des objectifs d'un collaborateur cette année *
 	 */
 	@RequestMapping(value = "/collaborateurs/{id}/objectifs_revised", method = RequestMethod.GET)
 	public Reponse getAllObjectifsOfCollaborateurRevised(@PathVariable("id") Long id){
@@ -189,7 +189,7 @@ public class ObjectifController {
 	}
 
 	/*
-	 * Evaluation des objectifs de cette année et definition des objectifs de l’année prochaine (en BAP)
+	 * Evaluation des objectifs de cette année et definition des objectifs de l’année prochaine (en BAP) *
 	 */
 	@RequestMapping(value = "/objectifs_evaluation", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
 	public Reponse evaluationObjectifBAP(@RequestBody EvaluationObjectifBAPModel model){
