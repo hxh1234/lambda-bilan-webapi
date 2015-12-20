@@ -1,5 +1,7 @@
 package com.lambda.bilan.web.controllers;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.apache.commons.io.IOUtils;
 
 import com.lambda.bilan.entities.Administrateur;
 import com.lambda.bilan.entities.Collaborateur;
@@ -21,6 +25,7 @@ import com.lambda.bilan.helpers.LambdaException;
 import com.lambda.bilan.metier.IUtilisateurMetier;
 import com.lambda.bilan.web.helpers.ExceptionHelpers;
 import com.lambda.bilan.web.helpers.PropretiesHelper;
+import com.lambda.bilan.web.models.CollaborateurModel;
 import com.lambda.bilan.web.models.Reponse;
 import com.lambda.bilan.web.models.UpdatePasswordModel;
 import com.lambda.bilan.web.models.UtilisateurModel;
@@ -32,6 +37,8 @@ public class UtilisateurController {
 	IUtilisateurMetier utilisateurMetier;
 	@Autowired
 	FileHelper fileHelper;
+	@Autowired
+	CollaborateurModel collaborateurModel;
 
 
 	/*
@@ -149,6 +156,18 @@ public class UtilisateurController {
 	public Reponse getUtilisateur(@PathVariable("id") Long id){
 		try {
 			return new Reponse(0,utilisateurMetier.getUtilisateur(id));
+		} catch (Exception e) {
+			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
+		}
+	}
+	
+	/*
+	 * Authentication
+	 */
+	@RequestMapping(value="/login",method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
+	public Reponse login(@RequestBody Utilisateur utilisateur){
+		try {
+			return new Reponse(0,utilisateurMetier.login(utilisateur.getEmailUtilisateur(), utilisateur.getPasswordUtilisateur()));
 		} catch (Exception e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
@@ -316,20 +335,49 @@ public class UtilisateurController {
 	@RequestMapping(value="/projets/{id}/collaborateurs" , method = RequestMethod.GET)
 	public Reponse getAllCollaborateurOfProjet(@PathVariable("id") Long id){
 		try {
-			return new Reponse(0,utilisateurMetier.getAllCollaborateurOfProjet(id));
+			return new Reponse(0,collaborateurModel.listeCollaborateurRvised(utilisateurMetier.getAllCollaborateurOfProjet(id), id));
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
 	}
-	/*****************************/
+	
 
+	/*
+	 * upload file
+	 */
 	@RequestMapping(value="/fileUpload", method=RequestMethod.POST)
-	public String FileUpload(@RequestParam(value="file", required=true) MultipartFile file){
+	public Reponse FileUpload(@RequestParam(value="file", required=true) MultipartFile file){
 		try {
-			return fileHelper.saveDocument(file, "aa.png");
-		} catch (IOException e) {
-			return e.getMessage();
+			Long id=1L;
+			utilisateurMetier.updateUrlPhotoUtilisateur(id, fileHelper.saveDocument(file));
+		} catch (IOException | LambdaException e) {
+			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
+		return new Reponse(0, PropretiesHelper.getText("utilisateur.delete.success"));
+		
+	}
+	/*
+	 * set image
+	 */
+	@RequestMapping(value = "/imageController")
+	@ResponseBody
+	public byte[] helloWorld(@PathVariable long imageId)  {
+		FileInputStream fileInputStream=null;
+        
+        File file = new File("D:\\1.png");
+        
+        byte[] bFile = new byte[(int) file.length()];
+        
+        try {
+            //convert file into array of bytes
+	    fileInputStream = new FileInputStream(file);
+	    fileInputStream.read(bFile);
+	    fileInputStream.close();
+	   
+	     return IOUtils.toByteArray(fileInputStream);
+        }catch(Exception e){
+            return null;
+        }	 
 	}
 
 }

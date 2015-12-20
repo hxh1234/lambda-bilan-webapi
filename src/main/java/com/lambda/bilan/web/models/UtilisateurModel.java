@@ -27,11 +27,10 @@ public class UtilisateurModel {
 	public static List<Map<String, Object>> listeEvaluateurRvised(List<Evaluateur> evaluateurs){
 		List<Map<String, Object>> listeEvaluateurRvised = new ArrayList<Map<String, Object>>();
 		for (Evaluateur evaluateur : evaluateurs) {
-			listeEvaluateurRvised.add(getMapForUtilisateur(evaluateur));
+			listeEvaluateurRvised.add(getMapForEvaluateur(evaluateur));
 		}
 		return listeEvaluateurRvised;
 	}
-
 
 	private static Map<String, Object> getMapForUtilisateur(Utilisateur utilisateur){
 		if(utilisateur==null)
@@ -74,10 +73,12 @@ public class UtilisateurModel {
 		if(evaluateur==null)
 			return null;
 		Map<String, Object> hash = new HashMap<String, Object>();		
-		hash.put("idEvaluateur",evaluateur.getIdUtilisateur());
-		hash.put("nomEvaluateur",evaluateur.getNomUtilisateur());
-		hash.put("prenomEvaluateur",evaluateur.getPrenomUtilisateur());
+		hash.put("idUtilisateur",evaluateur.getIdUtilisateur());
+		hash.put("nomUtilisateur",evaluateur.getNomUtilisateur());
+		hash.put("prenomUtilisateur",evaluateur.getPrenomUtilisateur());
 		
 		return hash;
 	}
+	
+
 }
