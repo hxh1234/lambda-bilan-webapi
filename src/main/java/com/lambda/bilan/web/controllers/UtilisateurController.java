@@ -1,22 +1,26 @@
 package com.lambda.bilan.web.controllers;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.lambda.bilan.entities.Administrateur;
 import com.lambda.bilan.entities.Collaborateur;
 import com.lambda.bilan.entities.Evaluateur;
 import com.lambda.bilan.entities.ManagerRH;
 import com.lambda.bilan.entities.Utilisateur;
+import com.lambda.bilan.helpers.FileHelper;
 import com.lambda.bilan.helpers.LambdaException;
 import com.lambda.bilan.metier.IUtilisateurMetier;
 import com.lambda.bilan.web.helpers.ExceptionHelpers;
 import com.lambda.bilan.web.helpers.PropretiesHelper;
-import com.lambda.bilan.web.models.ForgetPasswordModel;
 import com.lambda.bilan.web.models.Reponse;
 import com.lambda.bilan.web.models.UpdatePasswordModel;
 import com.lambda.bilan.web.models.UtilisateurModel;
@@ -26,6 +30,8 @@ public class UtilisateurController {
 
 	@Autowired
 	IUtilisateurMetier utilisateurMetier;
+	@Autowired
+	FileHelper fileHelper;
 
 
 	/*
@@ -179,14 +185,14 @@ public class UtilisateurController {
 		}
 		return new Reponse(0, PropretiesHelper.getText("utilisateur.update.password.success"));
 	}
-	
+
 	/*
 	 * Définir id google agenda
 	 */
 	@RequestMapping(value = "/utilisateurs/{id}" , method = RequestMethod.PUT , consumes = "application/json; charset=UTF-8")
-	public Reponse updatepass(@PathVariable("id") Long idUtilisateur,@RequestBody Long idCalendrierUtilisateur){
+	public Reponse updatepass(@PathVariable("id") Long idUtilisateur,@RequestBody String idCalendrierUtilisateur){
 		try {
-				utilisateurMetier.updateIdCalendrier(idUtilisateur, idCalendrierUtilisateur);
+			utilisateurMetier.updateIdCalendrier(idUtilisateur, idCalendrierUtilisateur);
 		} catch (Exception e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
 		}
@@ -209,7 +215,7 @@ public class UtilisateurController {
 	/*
 	 * mot de passe oublier
 	 */
-	
+
 	@RequestMapping(value = "/utilisateurs", method = RequestMethod.PUT, consumes = "application/json; charset=UTF-8")
 	public Reponse forgetPassword(@RequestBody Utilisateur utilisateur) {
 		try {
@@ -313,6 +319,16 @@ public class UtilisateurController {
 			return new Reponse(0,utilisateurMetier.getAllCollaborateurOfProjet(id));
 		} catch (LambdaException e) {
 			return new Reponse(1,ExceptionHelpers.getErreursForException(e));
+		}
+	}
+	/*****************************/
+
+	@RequestMapping(value="/fileUpload", method=RequestMethod.POST)
+	public String FileUpload(@RequestParam(value="file", required=true) MultipartFile file){
+		try {
+			return fileHelper.saveDocument(file, "aa.png");
+		} catch (IOException e) {
+			return e.getMessage();
 		}
 	}
 
