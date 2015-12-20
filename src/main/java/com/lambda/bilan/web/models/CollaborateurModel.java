@@ -35,6 +35,7 @@ public class CollaborateurModel {
 		hash.put("idUtilisateur",collaborateur.getIdUtilisateur());
 		hash.put("nomUtilisateur",collaborateur.getNomUtilisateur());
 		hash.put("prenomUtilisateur",collaborateur.getPrenomUtilisateur());
+		hash.put("emailUtilisateur",collaborateur.getEmailUtilisateur());
 		hash.put("telephoneUtilisateur",collaborateur.getTelephoneUtilisateur());
 		Intervention intervention =interventionMetier.getIntervention(idProjet, collaborateur.getIdUtilisateur());
 		if(intervention.getDateFinIntervention()==null)
