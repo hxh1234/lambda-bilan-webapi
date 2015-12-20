@@ -116,7 +116,7 @@ app.controller("managerRhAccueilController",
                     if (result.err == 0) {
                         $scope.errors.show=false;
                         $scope.succes={show:true,message:result.data};
-                        listerObjectifsRef();
+                        listerObjectif();
                     } else {
                         // il y a eu des erreurs
                         $scope.succes.show=false;
@@ -140,7 +140,7 @@ app.controller("managerRhAccueilController",
                         //Pas d'erreurs
                         $scope.errors.show=false;
                         $scope.succes={show:true,message:result.data};
-                        listerObjectifsRef();
+                        listerObjectif();
                     } else {
                         // il y a eu des erreurs
                         $scope.succes.show=false;

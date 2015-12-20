@@ -1,0 +1,301 @@
+    <!DOCTYPE html>
+    <html lang="en" ng-app="lambda.bilan">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+      <meta name="description" content="">
+      <meta name="author" content="ThemeBucket">
+      <link rel="shortcut icon" href="#" type="image/png">
+        <title>Collaborateur</title>
+        <!--ios7-->
+        <link rel="stylesheet" type="text/css" href="../../assets/js/ios-switch/switchery.css" />
+        <!--wysihtml5 css -->
+        <link rel="stylesheet" type="text/css" href="../../assets/js/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
+        <link href="../../assets/css/style.css" rel="stylesheet">
+        <link href="../../assets/css/style-responsive.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="../../assets/js/html5shiv.js"></script>
+        <script src="../../assets/js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body class="sticky-header  left-side-collapsed" ng-controller="profilController">
+
+    <section>
+        <!-- left side start-->
+        <div class="left-side sticky-left-side">
+
+            <!--logo and iconic logo start-->
+            <div class="logo">
+                <a href="index.html"><img src="../../assets/images/logo.png" alt=""></a>
+            </div>
+
+            <div class="logo-icon text-center">
+                <a href="index.html"><img src="../../assets/images/logo_icon.png" alt=""></a>
+            </div>
+            <!--logo and iconic logo end-->
+
+            <div class="left-side-inner">
+
+                <!-- visible to small devices only -->
+                <div class="visible-xs hidden-sm hidden-md hidden-lg">
+                    <div class="media logged-utilisateur">
+                        <img alt="" src="../../assets/images/photos/utilisateur-avatar.png" class="media-object">
+                        <div class="media-body">
+                            <h4><a href="#">Anas masaaf</a></h4>
+                        </div>
+                    </div>
+
+                    <h5 class="left-nav-title">Mon Compte</h5>
+                    <ul class="nav nav-pills nav-stacked custom-nav">
+                      <li><a href="#"><i class="fa fa-utilisateur"></i> <span>Profile</span></a></li>
+                    </ul>
+                </div>
+                <!--sidebar nav start-->
+                <ul class="nav nav-pills nav-stacked custom-nav">
+                    <li><a href="accueil.html"><i class="fa fa-home"></i> <span>Accueil</span></a></li>
+                    <li><a href="liste_collaborateur.html"><i class="fa fa-users"></i> <span>Gestion Collaborateur</span></a></li>
+                    <li class="active"><a href="profil.html"><i class="fa fa-user"></i> <span>Mon profil</span></a></li>
+                    <li><a href="login.html"><i class="fa fa-sign-in"></i> <span>Se deconnecter</span></a></li>
+                </ul>
+                <!--sidebar nav end-->
+
+            </div>
+        </div>
+        <!-- left side end-->
+
+        <!-- main content start-->
+        <div class="main-content">
+
+            <div class="header-section">
+
+                <!--toggle button start-->
+                <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+                <!--toggle button end-->
+
+                <!-- header page-->
+                <ng-include src="'../includes/header_page.html'"></ng-include>
+
+            </div>
+            <!--body wrapper start-->
+            <div class="wrapper">
+
+                <div class="page-heading">
+                    <h3>
+                        Collaborateur  <small>Profil</small>
+                    </h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--breadcrumbs start -->
+                        <ul class="breadcrumb panel">
+                            <li class="active">Profil</li>
+                        </ul>
+                        <!--breadcrumbs end -->
+                    </div>
+                </div>
+                <!-- header body -->
+                <ng-include src="'../includes/errors_succes.html'"></ng-include>
+                <!-- present working link End-->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row"><!-- info profil -->
+    
+    <div class="col-md-3">
+    
+    </div>
+    
+    <div class="col-md-6">
+        <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="profile-pic text-center">
+                    <img alt="" src="../../assets/images/photos/utilisateur1.png">
+                    <h2> Anas MASAAF </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <input type="file" file-model="myFile"/>
+                    <button ng-click="uploadFile()">upload me</button>
+                </div>
+
+                <ul class="p-info">
+                    <li>
+                        <div class="title">Email</div>
+                        <div class="desk">{{utilisateur.emailUtilisateur}}</div>
+                    </li>
+                    <li>
+                        <div class="title">Telephone</div>
+                        <div class="desk">{{utilisateur.telephoneUtilisateur}}</div>
+                    </li>
+                    <li>
+                        <div class="title">Date de naissance</div>
+                        <div class="desk">{{utilisateur.dateNaissanceUtilisateur}}</div>
+                    </li>
+                    <li>
+                        <div class="title">Sexe</div>
+                        <div class="desk" >{{utilisateur.sexeUtilisateur}} </div>
+                    </li>
+                    <li>
+                        <div class="title">Adresse</div>
+                        <div class="desk">{{utilisateur.adresseUtilisateur}}</div>
+                    </li>
+                    <li>
+                        <div class="title">Profil</div>
+                        <div class="desk">{{utilisateur.role}}</div>
+                    </li>
+                </ul>
+                <div class="row">
+                    <a href="#agendaProfil" data-toggle="modal" style="margin-top: 20px;" class="btn btn-block btn-success">
+                        Definir votre google agenda
+                    </a>
+                    <a href="#updateCompteProfil" data-toggle="modal" style="margin-top: 5px;" class="btn btn-block btn-danger">
+                        Mise à jour du mot de passe
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+    <div class="col-md-3">
+     </div>
+</div><!-- info profil -->
+                    </div>
+                </div>
+                <!-- Modal update password -->
+                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" 
+                     id="updateCompteProfil" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Mise à jour du mot de passe</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <section class="panel">
+                                        <div class="panel-body">
+                                            <form class="form-horizontal" role="form">
+                                                <div class="form-group">
+                                                    <label  class="col-lg-3 col-sm-3 control-label">Actuel
+                                                     <span class="text-danger"> *</span></label>
+                                                    <div class="col-lg-9">
+                                                        <div class="iconic-input">
+                                                            <i class="fa fa-unlock-alt"></i>
+                                                            <input ng-model="currentMdp" type="password" class="form-control"
+                                                                   placeholder="mot de passe actuel" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label  class="col-lg-3 col-sm-3 control-label">Nouveau
+                                                     <span class="text-danger"> *</span></label>
+                                                    <div class="col-lg-9">
+                                                        <div class="iconic-input">
+                                                            <i class="fa fa-key"></i>
+                                                            <input ng-model="newMdp" id="newPassword_1" type="password" class="password-change form-control"
+                                                                   placeholder="nouveau mot de passe" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label  class="col-lg-3 col-sm-3 control-label">Confirmer
+                                                     <span class="text-danger"> *</span></label>
+                                                    <div class="col-lg-9">
+                                                        <div class="iconic-input">
+                                                            <i class="fa fa-key"></i>
+                                                            <input ng-model="newMdpConf" id="newPassword_2" type="password" class="password-change form-control"
+                                                                   placeholder="confirmer le mot de passe" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                               <button data-dismiss="modal" class="btn btn-default btn-sm" type="button">Annuler</button>
+                                                <button ng-click="changerMdp()" id="update_pasword" type="submit" class="finish btn btn-info btn-extend disabled">Sauvegarder les changements</button>
+                                            </form>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- modal update password  end -->
+            <!-- Modal update password -->
+                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" 
+                     id="agendaProfil" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Votre Google Agenda</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <section class="panel">
+                                        <div class="panel-body">
+                                            <form class="form-horizontal" role="form">
+                                                <div class="form-group">
+                                                    <label  class="col-lg-3 col-sm-3 control-label">ID Google Agenda</label>
+                                                    <div class="col-lg-9">
+                                                        <div class="iconic-input">
+                                                            <i class="fa fa-unlock-alt"></i>
+                                                            <input ng-model="idAgenda" type="text" class="form-control"
+                                                                   placeholder="Google Agenda ID" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                               <button data-dismiss="modal" class="btn btn-default btn-sm" type="button">Annuler</button>
+                                                <button  ng-click="enregistrerIdAgenda()" type="submit" class="finish btn btn-info btn-extend">Sauvegarder les changements</button>
+                                            </form>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- modal update password  end -->
+            </div>
+            <!--body wrapper end-->
+
+            <!--footer section start-->
+            <footer id="footer">
+                2015 &copy; Anas & Jaouad
+            </footer>
+            <!--footer section end-->
+
+        </div>
+        <!-- main content end-->
+    </section>
+
+    <script type="text/javascript"  src="../../assets/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="../../assets/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="../../assets/bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script type="text/javascript" src="../../controllers/profilController.js"></script>
+    <script type="text/javascript" src="../../services/constants.js"></script>
+    <script type="text/javascript" src="../../services/dao.js"></script>
+    <script type="text/javascript" src="../../services/utils.js"></script>
+    <script type="text/javascript" src="../../services/properties.js"></script>
+    <script type="text/javascript" src="../../services/security.js"></script>
+    <script type="text/javascript" src="../../directives/fileModel.js"></script>
+    <script type="text/javascript" src="../../services/fileUpload.js"></script>
+    <!-- Placed js at the end of the document so the pages load faster -->
+    <script src="../../assets/js/jquery-1.10.2.min.js"></script>
+    <script src="../../assets/js/jquery-ui-1.9.2.custom.min.js"></script>
+    <script src="../../assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../../assets/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/modernizr.min.js"></script>
+    <script src="../../assets/js/jquery.nicescroll.js"></script>
+    <!--common scripts for all pages-->
+    <script src="../../assets/js/scripts.js"></script>
+    <script type="text/javascript" src="../../assets/js/validation-password.js"></script>
+    </body>
+    </html>

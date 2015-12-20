@@ -11,7 +11,7 @@ app.controller("listeProjetController",
 
 
             $scope.projets=[];
-            //chargement liste collabs
+            //chargement liste objectifs
             var task = dao.getData("/collaborateurs/"+idCollaborateur+"/projets", null, HTTP_METHOD.get);
             //on attent la reponse...
             task.promise.then(function (result) {

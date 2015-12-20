@@ -18,6 +18,7 @@ angular.module("lambda.bilan")
       "des collaborateurs sans objectif ",
       listerObjRefusError:"Les erreurs suivantes se sont produites lors du chargement de la liste " +
       "des collaborateurs sans objectif ",
+      rejeterObjectifError:"Les erreurs suivantes se sont produites lors du rejet de l'objectif",
       supprimerObjectifError:"Les erreurs suivantes se sont produites lors de la suppression de l'objectif",
       modifierObjectifError:"Les erreurs suivantes se sont produites lors de la modification de l'objectif",
       validerObjectifError:"Les erreurs suivantes se sont produites lors de la validation de l'objectif",
@@ -47,6 +48,8 @@ angular.module("lambda.bilan")
       enregistrerFeedbackError:"Les erreurs suivantes se sont produites lors de l'enregistrement de feedback",
       validerFeedbackError:"Les erreurs suivantes se sont produites lors de l'enregistrement de feedback",
       dresserPlanAmeliorationError:"Les erreurs suivantes se sont produites lors du dressage du plan d'amélioration",
+      enregistrerIdAgendaError:"Les erreurs suivantes se sont produites lors de l'enregistrement de votre ID Google Agenda",
+      changerMdpError:"Les erreurs suivantes se sont produites lors de la mise à jour de votre mot de passe",
       //Erreurs http
       error_unknown: "Erreur non identifiée",
       not_authorized: "Erreur d'authentification",
